@@ -9,6 +9,9 @@ Tasks:
 - show them in a page
 
 
+TODO:
+set up a few tests with super-test and such do demonstrate the mocking part!
+
 ## Rabbitmq server
 We start with docker:
 
