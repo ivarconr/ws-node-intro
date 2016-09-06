@@ -18,6 +18,6 @@
   "homepage": "https://github.com/ivarconr/ws-node-intro#readme",
   "devDependencies": {
     "eslint": "^3.4.0",
-    "eslint-config-finn": "0.0.2"
+    "eslint-config-finn": "^1.0.0-alpha.11"
   }
 }

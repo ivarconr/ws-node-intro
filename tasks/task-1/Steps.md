@@ -10,7 +10,7 @@ Setup
     * + Write over "ask for message text" ? / TODO: replace prev line?
 
 * Task c): connnect with RabbitMQ with module `x`(TODO), and write messages to console
-    * npm install `amqplib`
+    * npm install `helpers/queue`
     * Lese `README.md` til `helpers/queue` lib
     * Påse at hver bruker unikt queueName.
     * Solution: 

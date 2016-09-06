@@ -5,26 +5,26 @@ const readline = require('readline');
 
 const data = [
     {
-        "name": "Ivar",
-        "message": "Hello there robot!"
+        name: 'Ivar',
+        message: 'Hello there robot!',
     },
     {
-        "name": "Robot",
-        "message": "Hi Ivar!!"
+        name: 'Robot',
+        message: 'Hi Ivar!!',
     },
     {
-        "name": "Soca",
-        "message": "I need some water"
+        name: 'Soca',
+        message: 'I need some water',
     },
     {
-        "name": "Ivar",
-        "message": "oh no!"
-    }
+        name: 'Ivar',
+        message: 'oh no!',
+    },
 ];
 
 const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+    input: process.stdin,
+    output: process.stdout,
 });
 
 
@@ -39,20 +39,23 @@ function status () {
 }
 
 queue('amqp://10.200.228.112:8081', 'busy-queue')
-    .on('message', (message) => status())
+    .on('message', () => status())
     .on('error', console.error)
     .on('connected', q => {
         console.log('Connected');
+
+        function messageSender ({ message, name }) {
+            setTimeout(() => {
+                sentMessages++;
+                q.sendMessage(name, `${sentMessages}: ${message}`)
+                    .catch(console.error);
+            }, Math.round(Math.random() * 500));
+        }
+
         setInterval(() => {
-            data.map(({ message, name }) => {
-                setTimeout(() => {
-                    sentMessages++;
-                    q.sendMessage(name, `${sentMessages}: ${message}`)
-                        .catch(console.error)
-                }, Math.round(Math.random() * 500));
-            });
-        }, 1000)
-    })
+            data.forEach(messageSender);
+        }, 1000);
+    });
 
 
 
