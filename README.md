@@ -17,4 +17,7 @@ We start with docker:
 
 ```
 docker run -d --hostname my-rabbit --name some-rabbit -p 8080:15672 rabbitmq:3-management
+
+# or to use 8081 as amqp port:
+docker run -d --hostname my-rabbit --name some-rabbit -p 8080:15672 -p 8081:5672 rabbitmq:3-management
 ```
