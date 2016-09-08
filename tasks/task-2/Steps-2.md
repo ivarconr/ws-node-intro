@@ -1,0 +1,19 @@
+Setup
+* npm init
+* check docs for express http://expressjs.com/
+
+* Task a): create simple 'hello world' app in a single file
+    * Solution: Copy-paste from docs and run.
+    * Check result in browser.
+
+* Task b): Write a test for "a" using supertest
+    * Solution: Separate code from "a" into server and app. npm install supertest. Run testfile.
+    * npm install supertest --save-dev
+
+* Task c): Render a view with handlebars. Use handlebars-express.
+    * Make provided test green.
+
+* Task d): Make a form with name and message. Post to new route and print.
+    * Solution - TODO
+
+
