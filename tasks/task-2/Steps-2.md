@@ -18,4 +18,5 @@ Setup
 * Task d): Make a form with name and message. Post to new route and print.
     * Solution - TODO
 
-
+**TODO:**
+- Implementere egen middelware for å time-request-tider. 
