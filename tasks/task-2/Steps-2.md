@@ -6,6 +6,8 @@ Setup
     * Solution: Copy-paste from docs and run.
     * Check result in browser.
 
+* Task a2): Use middleware to expose a public folder. 
+
 * Task b): Write a test for "a" using supertest
     * Solution: Separate code from "a" into server and app. npm install supertest. Run testfile.
     * npm install supertest --save-dev
