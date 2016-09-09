@@ -20,3 +20,4 @@ Setup
 
 **TODO:**
 - Implementere egen middelware for å time-request-tider. 
+- Add hints to task-description. 
