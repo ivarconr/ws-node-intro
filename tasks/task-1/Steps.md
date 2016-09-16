@@ -6,6 +6,7 @@ Setup
 * npm
 * readline
 * eventemitter
+* rabbitmq (what is a queue? Exchange? (map to kafka))
 
 * Task a): get `readline` to accept input
     * Solution: Copy-paste from docs and run
@@ -15,8 +16,8 @@ Setup
     * + Write over "ask for message text" ? / TODO: replace prev line?
 
 * Task c): connnect with RabbitMQ with module `x`(TODO), and write messages to console
-    * npm install `helpers/queue`
-    * Lese `README.md` til `helpers/queue` lib
+    * npm install `finn-workshop-helpers`
+    * Lese `README.md` til `finn-workshop-helpers/queue` lib
     * Påse at hver bruker unikt queueName.
     * Solution: 
         * write a queue consumer with lib that console logs output from queue 'busy-queue'
