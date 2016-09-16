@@ -29,7 +29,3 @@ Setup
     * publish message via `queue`
     * connect to the queue and write messages to console
     * HINT: use `readline.prompt()` and `readline.on('line', (line) => {})` sendMessage/publish message to queue
-
-
-# TODOS
-- publish helpers to `@finn-no/workshop-helpers`
