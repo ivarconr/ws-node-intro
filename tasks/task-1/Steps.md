@@ -2,6 +2,11 @@ Setup
 * npm init
 * check docs for https://nodejs.org/dist/latest-v6.x/docs/api/readline.html
 
+# requirements:
+* npm
+* readline
+* eventemitter
+
 * Task a): get `readline` to accept input
     * Solution: Copy-paste from docs and run
 
@@ -23,3 +28,7 @@ Setup
     * publish message via `queue`
     * connect to the queue and write messages to console
     * HINT: use `readline.prompt()` and `readline.on('line', (line) => {})` sendMessage/publish message to queue
+
+
+# TODOS
+- publish helpers to `@finn-no/workshop-helpers`

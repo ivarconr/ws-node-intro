@@ -1,5 +1,5 @@
 'use strict';
-require('colors');
+const chalk = require('chalk');
 const queue = require('./');
 const readline = require('readline');
 
@@ -35,7 +35,7 @@ function status () {
     totalMessages++;
     readline.clearLine(process.stdout, 0);
     readline.cursorTo(process.stdout, 0);
-    rl.write(`Messages published via exchange ${String(totalMessages).red} since ${date.toString().green}`);
+    rl.write(`Messages published via exchange ${chalk.red(totalMessages)} since ${chalk.green(date.toString())}`);
 }
 
 queue('amqp://10.200.228.112:8081', 'busy-queue')

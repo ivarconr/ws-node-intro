@@ -1,7 +1,8 @@
 'use strict';
 
-require('colors');
+const chalk = require('chalk');
 const queue = require('../../helpers/queue');
+const config = require('./config');
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -9,7 +10,7 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
-const nameProm = new Promise((resolve) => rl.question('What is your name? ', resolve))
+const nameProm = new Promise((resolve) => rl.question(`${chalk.black.bgRed(' What is your name? ')} `, resolve))
     .catch(console.error);
 
 function write (line) {
@@ -19,10 +20,10 @@ function write (line) {
     rl.prompt(true);
 }
 
-queue('amqp://10.200.228.112:8081', 'my-chat-$yourName')
+queue(config.amqpUri, 'my-chat-$yourName')
     .on('connected', (q) => {
         nameProm.then((name) => {
-            write(`${name.blue} (you) connected.`);
+            write(`${chalk.blue(name)} (you) connected.`);
             rl.on('line', input => {
                 if (input && input.trim()) {
                     q.sendMessage(name, input);
@@ -30,5 +31,5 @@ queue('amqp://10.200.228.112:8081', 'my-chat-$yourName')
             });
         });
     })
-    .on('message', ({ name, message }) => write(`${name.bold.green}: ${message}`))
+    .on('message', ({ name, message }) => write(`${chalk.bgYellow.blue.bold(` ${name} `)}: ${message}`))
     .on('error', console.error);

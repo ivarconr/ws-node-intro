@@ -1,6 +1,6 @@
 {
-  "name": "queue",
-  "version": "1.0.0",
+  "name": "@finn-no/workshop-helpers",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,6 @@
     "amqplib": "^0.4.2"
   },
   "devDependencies": {
-    "colors": "^1.1.2"
+    "chalk": "^1.1.3"
   }
 }
