@@ -28,8 +28,13 @@ const Task = (props) => (
                 <h2>{props.task.title} {subTask.title}</h2>
                 <p>{subTask.description}</p>
 
-                <h4>Hints</h4>
-                <Hints hints={subTask.hints} />
+                {subTask.hints && subTask.hints.length > 0 ?
+                    <div>
+                        <h4>Hints</h4>
+                        <Hints hints={subTask.hints} />
+                    </div> :
+                    null
+                }
 
                 {subTask.extras ? <div>
                     <h4>Extra stuff to do:</h4>
