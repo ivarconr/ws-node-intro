@@ -6,13 +6,18 @@ Setup
     * Solution: Copy-paste from docs and run.
     * Check result in browser.
 
-* Task a2): Use middleware to expose a public folder. 
+* Task a2): Expose a public folder with static files
+    * Create a folder with a file called test.html
+    * Expose on /public/test.html
+    * Hints: express middleware
 
 * Task b): Write a test for "a" using supertest
-    * Solution: Separate code from "a" into server and app. npm install supertest. Run testfile.
+    * Separate code from "a" into 2 separate files (server.js and app.js).  Make sure the app still works.
+    * Create a app-test.js. and test that the server responds with 200 ok and "Hello World" string.
+    * Hints: supertest
     * npm install supertest --save-dev
 
-* Task c): Render a view with handlebars. Use handlebars-express.
+* Task c): Render a view with nunjucks.
     * Make provided test green.
 
 * Task d): Make a middleware for requesttiming. use in previous example
@@ -23,5 +28,4 @@ Setup
     * Solution - TODO
 
 **TODO:**
-- Implementere egen middelware for å time-request-tider. 
 - Add hints to task-description. 

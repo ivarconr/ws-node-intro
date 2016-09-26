@@ -1,0 +1,12 @@
+
+{% block header %}
+<h1>Hei {{ name }}</h1>
+{% endblock %}
+
+{% block content %}
+<ul>
+    {% for person in items %}
+    <li>{{ person.name }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
