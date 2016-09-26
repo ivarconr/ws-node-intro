@@ -1,0 +1,25 @@
+<html>
+
+<body>
+    <form action="/new-message" method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" />
+        </div>
+        <div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message"></textarea>
+        </div>
+
+        <div class="button">
+            <button type="submit">Send message</button>
+        </div>
+    </form>
+
+    {% if name %}
+        <p>Takk, {{ name }}
+    {% endif %}
+
+</body>
+
+</html>
