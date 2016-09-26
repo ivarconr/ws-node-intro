@@ -35,3 +35,4 @@
    * Special hint: You'll need `body-parser` to parse form data
 
 ### Task e2): Test with supertets
+  * Create a test that submits the form, and verifies that the new view renders the name parameter
