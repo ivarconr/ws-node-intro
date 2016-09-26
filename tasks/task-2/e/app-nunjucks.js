@@ -1,12 +1,9 @@
 const express = require('express');
 const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser')
-const requestTimer = require('./requestTimer');
 const app = express();
 
 app.set('view engine', 'njk');
-
-app.use(requestTimer);
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const env = nunjucks.configure('./templates',{
@@ -23,12 +20,6 @@ app.post('/new-message', function (req, res) {
     res.render('index', {
         name
     });
-});
-
-app.get('/timer', function (req, res) {
-    setTimeout(function() {
-        res.send(200);
-    },2000);
 });
 
 app.get('/home', function (req, res) {
