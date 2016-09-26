@@ -26,3 +26,11 @@ Here's a few hints to help you out
 
 
 ### Task-e
+* Accessing form data in an express handler: http://expressjs.com/en/api.html#req.body
+* If-checks in nunjucks can be done like this:
+```
+{% if name %}
+stuff
+{% endif %}
+```
+
