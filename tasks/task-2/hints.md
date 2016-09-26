@@ -26,6 +26,9 @@ Here's a few hints to help you out
 
 
 ### Task-e
+* Create a post handler with the same url as you give the form action
+* Express routes: http://expressjs.com/en/guide/routing.html (see app.post example)
+* Html forms: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/My_first_HTML_form
 * Accessing form data in an express handler: http://expressjs.com/en/api.html#req.body
 * If-checks in nunjucks can be done like this:
 ```
