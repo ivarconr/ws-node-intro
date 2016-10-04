@@ -2,8 +2,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
-const service = require('./service');
 const expressWs = require('express-ws');
+const { join } = require('path');
+const createChatPerUser = require('./chat');
+
+class MessagesCache {
+    constructor () {
+        this.store = {};
+    }
+
+    pushTo (storeKey, value) {
+        if (this.store[storeKey]) {
+            this.store[storeKey].push(value);
+        } else {
+            this.store[storeKey] = [value];
+        }
+    }
+
+    get (storeKey) {
+        return this.store[storeKey];
+    }
+}
 
 module.exports.makeApp = (config) => {
     const app = express();
@@ -12,7 +31,7 @@ module.exports.makeApp = (config) => {
     // Configure
     app.set('view engine', 'njk');
 
-    nunjucks.configure('./templates', {
+    nunjucks.configure(join(__dirname, 'templates'), {
         autoescape: true,
         express: app,
     });
@@ -24,25 +43,8 @@ module.exports.makeApp = (config) => {
         res.render('index');
     });
 
-    app.ws('/chat', (ws) => {
-        console.log('connected client');
-        const { getMessages, sendMessage, onMessage } = service(config, 'test');
-        ws.send('init');
-        onMessage(message => ws.send(JSON.stringify(message)));
-    });
-
-
-//    app.post('/', function (req, res) {
-//         const name = req.body.name;
-//         const message = req.body.message;
-
-//         console.log(`Name: "${name}", message: "${message}"`);
-
-//         sendMessage(name, message)
-//             .then(getMessages)
-//             .then(messages => res.render('index', { messages: messages.reverse() }))
-//             .catch(error => res.render(500, error));
-//     });
+    const cache = new MessagesCache();
+    app.ws('/chat', createChatPerUser(cache, config));
 
     return app;
 };

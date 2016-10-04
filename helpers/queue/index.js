@@ -51,6 +51,12 @@ class Queue extends EventEmitter {
             new Buffer(JSON.stringify({ name, message }))
         ));
     }
+
+    stop () {
+        return this.channel.close().then(() => {
+            console.log('closed');
+        });
+    }
 };
 
 module.exports = function createQueue (url, queueName, exchangeName) {

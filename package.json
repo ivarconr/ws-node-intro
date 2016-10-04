@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ivarconr/ws-node-intro#readme",
   "devDependencies": {
+    "@types/node": "^6.0.42",
     "@types/react": "^0.14.37",
     "eslint": "^3.5.0",
     "eslint-config-finn": "^1.0.0-alpha.11",
