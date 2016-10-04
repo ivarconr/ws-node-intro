@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
@@ -5,14 +6,13 @@ const service = require('./service');
 const expressWs = require('express-ws');
 
 module.exports.makeApp = (config) => {
-    
     const app = express();
     expressWs(app);
 
     // Configure
     app.set('view engine', 'njk');
-    
-    const env = nunjucks.configure('./templates',{
+
+    nunjucks.configure('./templates', {
         autoescape: true,
         express: app,
     });
@@ -24,7 +24,7 @@ module.exports.makeApp = (config) => {
         res.render('index');
     });
 
-    app.ws('/chat', (ws, req) => {
+    app.ws('/chat', (ws) => {
         console.log('connected client');
         const { getMessages, sendMessage, onMessage } = service(config, 'test');
         ws.send('init');
@@ -32,18 +32,17 @@ module.exports.makeApp = (config) => {
     });
 
 
+//    app.post('/', function (req, res) {
+//         const name = req.body.name;
+//         const message = req.body.message;
 
-   app.post('/', function (req, res) {    
-        const name = req.body.name;
-        const message = req.body.message;
+//         console.log(`Name: "${name}", message: "${message}"`);
 
-        console.log(`Name: "${name}", message: "${message}"`);
-
-        sendMessage(name, message)
-            .then(getMessages)
-            .then(messages => res.render('index', { messages: messages.reverse() }))
-            .catch(error => res.render(500, error));
-    });
+//         sendMessage(name, message)
+//             .then(getMessages)
+//             .then(messages => res.render('index', { messages: messages.reverse() }))
+//             .catch(error => res.render(500, error));
+//     });
 
     return app;
 };

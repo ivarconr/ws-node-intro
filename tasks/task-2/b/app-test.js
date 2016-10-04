@@ -1,3 +1,4 @@
+'use strict';
 const request = require('supertest');
 const assert = require('assert');
 
@@ -8,9 +9,9 @@ request(app)
     .get('/')
     .expect(200)
     .end((err, res) => {
-        if (err) { 
+        if (err) {
             throw err;
         }
         assert.strictEqual(res.text, 'Hello World B!');
-        console.log('Success');
+        console.log('Success!');
     });

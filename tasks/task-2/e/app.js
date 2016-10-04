@@ -1,5 +1,6 @@
+'use strict';
 const express = require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 
 module.exports.makeApp = () => {
@@ -7,10 +8,10 @@ module.exports.makeApp = () => {
 
     // Configure
     app.set('view engine', 'njk');
-    
-    const env = nunjucks.configure('./templates',{
+
+    nunjucks.configure('./templates', {
         autoescape: true,
-        express: app
+        express: app,
     });
 
     // register middlewares
@@ -29,17 +30,17 @@ module.exports.makeApp = () => {
     // routes
     app.get('/', (req, res) => {
         res.render('index', {
-            "name": req.query.name
+            name: req.query.name,
         });
     });
 
-    app.post('/new-message', function (req, res) {    
+    app.post('/new-message', (req, res) => {
         const name = req.body.name;
         const message = req.body.message;
 
         console.log(`Name: "${name}", message: "${message}"`);
         res.render('index', {
-            name
+            name,
         });
     });
 

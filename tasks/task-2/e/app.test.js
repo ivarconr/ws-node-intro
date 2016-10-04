@@ -1,10 +1,14 @@
+'use strict';
 const request = require('supertest');
 const assert = require('assert');
 
 const { makeApp } = require('./app');
 const app = makeApp();
 
-const message = { name : 'marcus', message : 'message'};
+const message = {
+    name: 'marcus',
+    message: 'message',
+};
 
 request(app)
     .post('/new-message')
@@ -16,5 +20,5 @@ request(app)
             throw err;
         }
         assert.ok(res.text.indexOf('Takk, marcus') > -1);
-        console.log('Success!');  
+        console.log('Success!');
     });

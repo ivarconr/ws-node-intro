@@ -1,3 +1,4 @@
+'use strict';
 const { makeApp } = require('./app');
 const app = makeApp();
 

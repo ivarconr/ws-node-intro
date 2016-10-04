@@ -1,3 +1,4 @@
+'use strict';
 const config = require('../config');
 const { makeApp } = require('./app');
 const app = makeApp(config);

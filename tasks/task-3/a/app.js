@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const nunjucks = require('nunjucks');
 const service = require('./service');
@@ -8,8 +9,8 @@ module.exports.makeApp = (config) => {
 
     // Configure
     app.set('view engine', 'njk');
-    
-    const env = nunjucks.configure('./templates',{
+
+    nunjucks.configure('./templates', {
         autoescape: true,
         express: app,
     });

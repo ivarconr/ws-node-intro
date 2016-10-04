@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const nunjucks = require('nunjucks');
 
@@ -6,15 +7,15 @@ module.exports.makeApp = () => {
 
     app.set('view engine', 'njk');
 
-    const env = nunjucks.configure('./templates',{
+    nunjucks.configure('./templates', {
         autoescape: true,
-        express: app
+        express: app,
     });
 
 
     app.get('/home', (req, res) => {
         res.render('index', {
-            "name": req.query.name,
+            name: req.query.name,
         });
     });
 

@@ -1,3 +1,4 @@
+'use strict';
 const queue = require('../../../helpers/queue');
 
 module.exports = (config) => {
@@ -9,7 +10,11 @@ module.exports = (config) => {
         .on('error', console.error);
 
     return {
-        getMessages () { return Promise.resolve(messages); },
-        sendMessage (name, message) { return q.sendMessage(name, message) },
+        getMessages () {
+            return Promise.resolve(messages);
+        },
+        sendMessage (name, message) {
+            return q.sendMessage(name, message);
+        },
     };
 };

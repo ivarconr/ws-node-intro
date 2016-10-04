@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
@@ -9,8 +10,8 @@ module.exports.makeApp = (config) => {
 
     // Configure
     app.set('view engine', 'njk');
-    
-    const env = nunjucks.configure('./templates',{
+
+    nunjucks.configure('./templates', {
         autoescape: true,
         express: app,
     });
@@ -24,7 +25,7 @@ module.exports.makeApp = (config) => {
             .catch(error => res.render(500, error));
     });
 
-   app.post('/', function (req, res) {    
+    app.post('/', (req, res) => {
         const name = req.body.name;
         const message = req.body.message;
 
