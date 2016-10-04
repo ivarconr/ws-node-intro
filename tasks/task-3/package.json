@@ -1,0 +1,17 @@
+{
+  "name": "task-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.4.2",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "nunjucks": "^2.5.2"
+  }
+}

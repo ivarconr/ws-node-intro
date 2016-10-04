@@ -1,0 +1,17 @@
+<html>
+
+<body>
+    <dl>
+    {% for m in messages %}
+        <dt><strong>{{ m.name }}</strong></dt>
+        <dd>{{ m.message }}</dd>
+    {% else %}
+        <dt>Empty list of messages</dt>
+    {% endfor %}
+        
+
+    </dl>
+
+</body>
+
+</html>
