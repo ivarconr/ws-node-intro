@@ -1,0 +1,32 @@
+<html>
+
+<body>
+    <form action="/" method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" />
+        </div>
+        <div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message"></textarea>
+        </div>
+
+        <div class="button">
+            <button type="submit">Send message</button>
+        </div>
+    </form>
+
+    <h2>Messages</h2>
+    <a href="/">Oppdater</a>
+    <dl>
+        {% for m in messages %}
+            <dt><strong>{{ m.name }}</strong></dt>
+            <dd>{{ m.message }}</dd>
+        {% else %}
+            <dt>Empty list of messages</dt>
+        {% endfor %}
+    </dl>
+
+</body>
+
+</html>
