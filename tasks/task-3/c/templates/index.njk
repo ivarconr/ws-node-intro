@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <script>
+        var host = window.document.location.host.replace(/:.*/, '');
+        var ws = new WebSocket('ws://' + host + ':3000/chat');
+        ws.onmessage = function (event) {
+            var msg = JSON.parse(event.data);
+            var element = document.getElementById('messages');
+            var li = document.createElement('li');
+            li.textContent = msg.name + ':' + msg.message;
+
+            element.appendChild(li)
+        };
+
+    </script>
+
+</head>
+
+<body>
+    <form action="/" method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" />
+        </div>
+        <div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message"></textarea>
+        </div>
+
+        <div class="button">
+            <button type="submit">Send message</button>
+        </div>
+    </form>
+
+    <h2>Messages</h2>
+    <ul id="messages">
+    </ul>
+
+</body>
+
+</html>
