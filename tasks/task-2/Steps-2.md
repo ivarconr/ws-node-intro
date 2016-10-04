@@ -20,7 +20,7 @@
    * Create a test file `app-test.js` and test that the server responds with 200 ok and "Hello World" string.
 
 ### Task c): Render a view with nunjucks.
-   * Create a new route `/home` that renders a nunjucks template. 
+   * Create a new route `/` that renders a nunjucks template. 
    * The view should render the string "hei <name>", where name is a variable that is injected with nunjucks.
    * The handler should receive a query string parameter called `name`, that you inject into the render function
    * Make the provided test green
@@ -36,3 +36,6 @@
 
 ### Task e2): Test with supertets
   * Create a test that submits the form, and verifies that the new view renders the name parameter
+
+### Task f: Error handling
+  * TODO

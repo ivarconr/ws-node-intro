@@ -1,12 +1,14 @@
 const express = require('express');
 const app = express();
 
-app.use('/public',express.static('public'));
+const PORT = process.env.PORT || 3000;
 
-app.get('/', function (req, res) {
+app.use('/public', express.static('public'));
+
+app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.listen(3000, function () {
-    console.log('Hello world!');
+app.listen(3000, () => {
+    console.log(`Express started on http://localhost:${PORT}`);
 });

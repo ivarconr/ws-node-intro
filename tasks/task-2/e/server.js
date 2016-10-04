@@ -1,8 +1,8 @@
-const app = require('./app-nunjucks').makeApp();
+const { makeApp } = require('./app');
+const app = makeApp();
 
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, function(){
-    console.log('Web server listening on port ' +port);
-    console.log("PID:" + process.pid);
+app.listen(PORT, () => {
+    console.log(`Web server listening on http://localhost:${PORT}`);
 });

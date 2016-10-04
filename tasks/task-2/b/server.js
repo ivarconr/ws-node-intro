@@ -1,6 +1,7 @@
+const { makeApp } = require('./app');
+const app = makeApp();
+const PORT = process.env.PORT || 3000;
 
-const app = require('./app').makeApp();
-
-app.listen(app.get('port'), function(){
-    console.log('Web server listening on port ' + app.get('port'));
+app.listen(PORT, () => {
+    console.log(`Web server listening on http://localhost:${PORT}`);
 });
