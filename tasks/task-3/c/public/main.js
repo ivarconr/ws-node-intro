@@ -54,11 +54,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var submitting = false;
     newMessageFormEl.addEventListener('submit', function (e) {
         e.preventDefault();
+        var value = messageInputEl.value;
+        if (value === '') {
+            return;
+        }
         if (submitting) {
             return;
         }
         submitting = true;
-        var value = messageInputEl.value;
         ws.send(JSON.stringify({ type: 'send-message', value: value }));
 
         setTimeout(function () {
@@ -73,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var connecting = false;
     userFormEl.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (!nameEl.value) {
+        if (nameEl.value === '') {
             return;
         }
         if (connecting) {
