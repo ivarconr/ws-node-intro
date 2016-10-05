@@ -1,0 +1,60 @@
+* { padding: 0; margin: 0}
+*, :after, :before {
+    box-sizing: inherit;
+}
+#username-input {
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    background: rgba(255, 255, 255, 0.9);
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    padding: 50px;
+}
+#username-input label, 
+#username-input input, 
+#username-input button {
+    padding: 5px;
+    font-size: 15px;
+}
+#messages {
+    position: absolute;
+    left: 0; 
+    right: 0;
+    top: 0;
+    bottom: 50px;
+    z-index: 1;
+    display: block;
+    overflow-y: auto;
+}
+#messages li {
+    padding: 5px;
+}
+#new-message-form {
+    background: #f1f1f1;
+    position: absolute;
+    height: 30px;
+    padding: 10px;
+    left: 0; 
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: block;
+}
+
+#new-message-form input {
+    width: calc(100% - 14px);
+    max-width: 100%; 
+    display: block;
+}
+
+#new-message-form label, 
+#new-message-form input {
+    padding: 5px;
+    font-size: 15px;
+}

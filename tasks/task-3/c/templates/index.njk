@@ -1,162 +1,25 @@
+<!DOCTYPE html>
 <html>
 
 <head>
     <title>Simplish Chat</title>
-    <style>
-        * { padding: 0; margin: 0}
-        #username-input {
-            position: absolute;
-            z-index: 10;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            background: white;
-            background: rgba(255, 255, 255, 0.9);
-            display: block;
-            text-align: center;
-            font-size: 15px;
-            padding: 50px;
-        }
-        #username-input label, #username-input input, #username-input button {
-            padding: 5px;
-            font-size: 15px;
-        }
-        #messages {
-            position: absolute;
-            left: 0; 
-            right: 0;
-            top: 0;
-            bottom: 50px;
-            z-index: 1;
-            display: block;
-            overflow-y: auto;
-        }
-        #messages li {
-            padding: 5px;
-        }
-        #new-message-form {
-            background: #f1f1f1;
-            position: absolute;
-            height: 50px;
-            left: 0; 
-            right: 0;
-            bottom: 0;
-            z-index: 1;
-            display: block;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/public/styles.css" rel="stylesheet"></link>
 </head>
 
 <body>
     <form id="username-input">
         <label for="name">Name:</label>
         <input type="text" id="username" name="name" />
-        <button>Logg inn</button>
+        <button>Log in</button>
     </form>
 
     <ul id="messages"></ul>
 
     <form id="new-message-form">
         <input id="message"></input>
-        <button type="submit">Send message</button>
     </form>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var host = window.document.location.host.replace(/:.*/, '');
-        var ws = new WebSocket('ws://' + host + ':3000/chat');
-
-        ws.onmessage = function (event) {
-            var payload = JSON.parse(event.data);
-            if (payload.type === 'init') {
-                payload.messages.forEach(renderMessage);
-                return;
-            }
-
-            if (payload.type === 'message') {
-                return renderMessage(payload);
-            }
-        };
-
-        ws.onclose = function (event) {
-            renderMessage({
-                name: 'system close event', 
-                message: event.reason 
-            });
-        };
-
-        ws.onerror = function (event) {
-            renderMessage({
-                name: 'system error event', 
-                message: event.reason 
-            });
-        }
-
-        // output message from server
-        var messagesContainerEl = document.getElementById('messages');
-        function renderMessage(message) {
-            var li = document.createElement('li');
-            var str = document.createElement('strong');
-            li.innerHTML = '<strong>' + message.name + ':</strong> ' + message.message;
-            messagesContainerEl.appendChild(li);
-
-
-            //console.log(messagesContainerEl.scrollTop, messagesContainerEl.scrollHeight )
-
-            //if (messagesContainerEl.scrollTop > (messagesContainerEl.scrollHeight - window.innerHeight)) {
-                messagesContainerEl.scrollTop = messagesContainerEl.scrollHeight;
-            //}
-            
-        }
-
-        // input message
-        var newMessageFormEl = document.getElementById('new-message-form');
-        var messageInputEl = document.getElementById('message');
-        var submitting = false;
-        newMessageFormEl.addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (submitting) {
-                return;
-            }
-            submitting = true;
-            var value = messageInputEl.value;
-            ws.send(JSON.stringify({ type: 'send-message', value: value }));
-
-            setTimeout(function() {
-                messageInputEl.value = '';
-                submitting = false;
-            }, 300);
-
-        }, false);
-
-        // input username:
-        var userFormEl = document.getElementById('username-input');
-        var nameEl = document.getElementById('username');
-        var connecting = false;
-        userFormEl.addEventListener('submit', function (e) {
-            e.preventDefault();
-            if (connecting) {
-                return;
-            }
-            connecting = true;
-            setTimeout(function () {
-                userFormEl.style = 'display:none;';
-                messageInputEl.focus();
-            }, 300);
-
-            ws.send(JSON.stringify({ 
-                type: 'username', 
-                value: nameEl.value 
-            }));
-            
-        }, false);
-
-
-
-
-    });
-    </script>
+    <script src="/public/main.js"></script>
 </body>
 
 </html>

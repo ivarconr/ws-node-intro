@@ -36,6 +36,7 @@ module.exports.makeApp = (config) => {
         express: app,
     });
 
+    app.use('/public', express.static(join(__dirname, 'public')));
     app.use(bodyParser.urlencoded({ extended: false }));
 
     // routes
