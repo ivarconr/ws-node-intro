@@ -3,7 +3,6 @@ const createService = require('./service');
 
 module.exports = function (cache, config) {
     return function perUserConntection (ws) {
-        console.log('New browser client connected');
         let service;
         let userName;
 
@@ -19,6 +18,7 @@ module.exports = function (cache, config) {
                     console.log('User identified:', userName);
                     service = createService(cache, config, userName);
                     service.onMessage(msg => {
+                        // websockets might have disconnected, `ws.send` will throw
                         try {
                             ws.send(JSON.stringify(Object.assign({ type: 'message' }, msg)));
                         } catch (e) {}
@@ -33,7 +33,6 @@ module.exports = function (cache, config) {
             }
 
             if (payload.type === 'send-message') {
-                console.log(payload);
                 return service.sendMessage(userName, payload.value);
             }
         }
@@ -47,8 +46,10 @@ module.exports = function (cache, config) {
         });
 
         ws.on('close', () => {
-            service.stop();
-            service = null;
+            if (service) {
+                service.stop();
+                service = null;
+            }
         });
     };
 };

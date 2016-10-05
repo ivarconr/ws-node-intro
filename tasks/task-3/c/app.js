@@ -4,25 +4,8 @@ const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 const expressWs = require('express-ws');
 const { join } = require('path');
-const createChatPerUser = require('./chat');
-
-class MessagesCache {
-    constructor () {
-        this.store = {};
-    }
-
-    pushTo (storeKey, value) {
-        if (this.store[storeKey]) {
-            this.store[storeKey].push(value);
-        } else {
-            this.store[storeKey] = [value];
-        }
-    }
-
-    get (storeKey) {
-        return this.store[storeKey];
-    }
-}
+const createChatPerUser = require('./lib/chat');
+const Cache = require('./lib/cache');
 
 module.exports.makeApp = (config) => {
     const app = express();
@@ -44,8 +27,7 @@ module.exports.makeApp = (config) => {
         res.render('index');
     });
 
-    const cache = new MessagesCache();
-    app.ws('/chat', createChatPerUser(cache, config));
+    app.ws('/chat', createChatPerUser(new Cache(), config));
 
     return app;
 };

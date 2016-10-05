@@ -1,5 +1,5 @@
 'use strict';
-const queue = require('../../../helpers/queue');
+const queue = require('../../../../helpers/queue');
 
 module.exports = (cache, config, userName) => {
     let q = queue(config.amqpUri, `my-chat-${userName}`)
