@@ -24,7 +24,7 @@ class Queue extends EventEmitter {
                 channel.assertExchange(exchangeName, 'fanout', { durable: false }).then(() => {
                     this.exchange = exchangeName;
                 }),
-                channel.assertQueue(queueName, { arguments: { 'x-max-length': 100 } }).then((mq) => {
+                channel.assertQueue(queueName, { arguments: { 'x-max-length': 200 } }).then((mq) => {
                     this.messageCount = mq.messageCount;
                     this.queueName = queueName;
                     this.channel = channel;
