@@ -38,7 +38,7 @@ function status () {
     rl.write(`Messages published via exchange ${chalk.red(totalMessages)} since ${chalk.green(date.toString())}`);
 }
 
-queue('amqp://localhost:5672', 'busy-queue')
+queue('amqp://localhost:8081', 'busy-queue')
     .on('message', () => status())
     .on('error', console.error)
     .on('connected', q => {
