@@ -1,5 +1,5 @@
 'use strict';
-const queue = require('../../../helpers/queue');
+const { queue } = require('../../../helpers');
 
 module.exports = (config) => {
     const messages = [];

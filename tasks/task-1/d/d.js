@@ -1,8 +1,7 @@
 'use strict';
 
 const chalk = require('chalk');
-const queue = require('../../../helpers/queue');
-const config = require('../config');
+const { queue, config } = require('../../../helpers');
 const readline = require('readline');
 
 const rl = readline.createInterface({

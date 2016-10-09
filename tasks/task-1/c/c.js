@@ -1,7 +1,6 @@
 'use strict';
 
-const queue = require('../../../helpers/queue');
-const config = require('../config');
+const { queue, config } = require('../../../helpers');
 
 queue(config.amqpUri, 'my-chat-$yourName')
     .on('connected', () => console.log('connected'))

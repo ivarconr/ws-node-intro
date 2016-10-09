@@ -3,6 +3,9 @@ const chalk = require('chalk');
 const queue = require('./');
 const readline = require('readline');
 
+const AMQP_PORT = process.env.AMQP_PORT || 5672;
+const AMQP_URI = process.env.AMQP_URI || `amqp://localhost:${AMQP_PORT}`;
+
 const data = [
     {
         name: 'Ivar',
@@ -38,7 +41,7 @@ function status () {
     rl.write(`Messages published via exchange ${chalk.red(totalMessages)} since ${chalk.green(date.toString())}`);
 }
 
-queue('amqp://localhost:8081', 'busy-queue')
+queue(AMQP_URI, 'busy-queue')
     .on('message', () => status())
     .on('error', console.error)
     .on('connected', q => {
