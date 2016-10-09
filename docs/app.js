@@ -90,7 +90,7 @@ const MenuComponent = ({ tasksList }) => (<div>
         <path fill="#0063fc" d="M22.5 4.2H6C5 4.2 4.2 5 4.2 6v52c0 1 .8 1.9 1.9 1.9H60V41.5C59.9 20.9 43.2 4.2 22.5 4.2"/>
         <path fill="#ffffff" d="M118 0H66c-3.3 0-6 2.7-6 6v17.4C53.2 9.6 38.9 0 22.5 0H6C2.7 0 0 2.7 0 6v52c0 3.3 2.7 6 6 6h112c3.3 0 6-2.7 6-6V6c0-3.3-2.7-6-6-6m1.8 58c0 1-.8 1.9-1.9 1.9H64.1V6c0-1 .8-1.9 1.9-1.9h52c1 0 1.9.8 1.9 1.9v52zM4.2 58V6C4.2 5 5 4.2 6 4.2h16.5c20.6 0 37.4 16.8 37.4 37.4v18.3H6c-1-.1-1.8-.9-1.8-1.9"/>
     </svg>
-    <h2>Schedule</h2>
+    <h2>FINN Node.js Workshop</h2>
 
     <ol>
         <li>
@@ -99,27 +99,34 @@ const MenuComponent = ({ tasksList }) => (<div>
         <li>
             <a href="#preperations">Preparations</a>
         </li>
+        <li>
+            <a href="https://docs.google.com/presentation/d/1IBXeQxZOrAQsXv4zXUOStNEDORhW3nyzMNrs9HY5yW0/edit?usp=sharing" target="_blank">
+                Workshop slides
+            </a>
+        </li>
     </ol>
 
     <h3>1) Nodeschools</h3>
     <ol>
         <li>
+            <input type="checkbox" />&nbsp;
             <a href="https://github.com/workshopper/learnyounode" target="_blank">
                 Learn you node
             </a>
         </li>
         <li>
+            <input type="checkbox" />&nbsp;
             <a href="https://github.com/npm/how-to-npm" target="_blank">
                 How to NPM
             </a>
         </li>
     </ol>
-    <h4>Slides:</h4>
-    <p><a target="blank" href="https://docs.google.com/presentation/d/1IBXeQxZOrAQsXv4zXUOStNEDORhW3nyzMNrs9HY5yW0/edit?usp=sharing">link</a></p>
+
     <h3>2) Tasks:</h3>
     <ol>
         {tasksList.map((task, i) => (
             <li key={i}>
+                <input type="checkbox" />&nbsp;
                 <a href={"#" + task.id}>{task.name}</a>
             </li>
         ))}
