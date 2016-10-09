@@ -18,6 +18,6 @@ Send messages:
 
     queue('ampq://0.0.0.0:8081', 'queue-name')
         .sendMessage('name', 'msg')
-        .then(() => console.log('sent))
+        .then(() => console.log('sent'))
         .catch(console.error);
 ```
