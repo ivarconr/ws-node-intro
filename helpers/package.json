@@ -1,10 +1,10 @@
 {
   "name": "finn-workshop-helpers",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "finn-workshop-helpers",
   "main": "index.js",
-  "files":[
-      "queue"
+  "files": [
+    "queue"
   ],
   "scripts": {
     "sender": "node queue/sender.js"

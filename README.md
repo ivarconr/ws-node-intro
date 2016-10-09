@@ -1,16 +1,16 @@
 # ws-node-intro
 Node Workshop for beginners.
 
-Tasks: 
-- Connect to queue 
-- consume messages
-- write test 
-- setup express
-- show them in a page
+## Docs / Guide
 
+[Workshop github pages](https://ivarconr.github.io/ws-node-intro/)
 
-TODO:
-set up a few tests with super-test and such do demonstrate the mocking part!
+## Source / Solutions for tasks
+
+* [task-1](./tasks/task-1)
+* [task-2](./tasks/task-2)
+* [task-3](./tasks/task-3)
+
 
 ## Rabbitmq server
 We start with docker:
