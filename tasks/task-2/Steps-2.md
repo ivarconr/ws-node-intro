@@ -38,4 +38,6 @@
   * Create a test that submits the form, and verifies that the new view renders the name parameter
 
 ### Task f: Error handling
-  * TODO
+  * Add a global handler for `uncaughtException` and `unhandledRejection` 
+  * add a express middleware to output an error stack for development
+  * do not output the stacktrace when `process.env.NODE_ENV === 'production'`
