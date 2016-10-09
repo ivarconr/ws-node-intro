@@ -115,7 +115,7 @@ const MenuComponent = ({ tasksList }) => (<div>
         </li>
     </ol>
     <h4>Slides:</h4>
-    <p>...</p>
+    <p><a target="blank" href="https://docs.google.com/presentation/d/1IBXeQxZOrAQsXv4zXUOStNEDORhW3nyzMNrs9HY5yW0/edit?usp=sharing">link</a></p>
     <h3>2) Tasks:</h3>
     <ol>
         {tasksList.map((task, i) => (
