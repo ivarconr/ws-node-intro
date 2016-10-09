@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run install-tasks",
+    "install-tasks": "cd tasks/task-1 && npm install && cd ../task-2 && npm install && cd ../task-3 && npm install && cd ../../",
     "test": "node ./test-all-solutions.js"
   },
   "repository": {
