@@ -1,110 +1,90 @@
 'use strict';
-const React = window.React;
 const ReactDOM = window.ReactDOM;
+const App = window.App;
+const Redux = window.Redux;
+const createStore = Redux.createStore;
+const Provider = ReactRedux.Provider;
 
-class App extends React.Component {
-    constructor() {
-        super();
-    }
+const actions = {
+    'ADD_TASK': 'ADD_TASK',
+    'SET_USER_INFO': 'SET_USER_INFO', // - username
+    'SHOW_TASK': 'TASK_SHOW',
+    'TASK_START': 'TASK_START', // - taskId
+    'TASK_STOP': 'TASK_STOP', //- taskId
+    'SHOW_HINT': 'SHOW_HINT', // - taskId, hintId
+};
 
-    render() {
-        return (<div className="line">
-            <div className="unit r-size2of3">
-                {!this.props.task.key ? <Home /> : <Task task={this.props.task} />}
-            </div>
-            <div className="unit r-size1of3">
-                <Menu current={this.props.task.key} tasks={this.props.tasks} />
-            </div>
-        </div>)
-    }
+const initialInputState = (tasks) => {
+    return {
+        userName: null,
+        taskId: null,
+        taskState: {
+
+        },
+        tasks: {
+            /* */
+        }
+    };
 }
 
-const Task = (props) => (
-    <div>
-        <h1>{props.task.title}</h1>
-        <p><strong>Description:</strong> {props.task.description}</p>
-        {props.task.children.map((subTask, i) => (
-            <div key={i}>
-                <h2>{props.task.title} {subTask.title}</h2>
-                <p>{subTask.description}</p>
 
-                {subTask.hints && subTask.hints.length > 0 ?
-                    <div>
-                        <h4>Hints</h4>
-                        <Hints hints={subTask.hints} />
-                    </div> :
-                    null
-                }
+// ADD_TASK
+function addTask(state, value) {
+    const newTaskMap = Object.assign({}, state.tasks);
+    newTaskMap[value.id] = value;
+    return Object.assign({}, state, { tasks: newTaskMap });
+}
 
-                {subTask.extras ? <div>
-                    <h4>Extra stuff to do:</h4>
-                    <Hints hints={subTask.extras} />
-                    </div> : null}
-            </div>
-        ))}
-    </div>
-)
+// SET_USER_INFO
+function setUserInfo (state, value) {
+    return Object.assign({}, state, { userName: value });
+}
 
-const Hints = ({ hints }) => (
-    <ol>
-        { hints.map((hint, i) => (
-            <li key={i}>{i+1}: {hint}</li>
-        )) }
-    </ol>
-);
+// SHOW_TASK
+function showTask (state, value) {
+    return Object.assign({}, state, { taskId: value });
+}
 
+// TASK_START
+function setTaskStart (state, value) {
+    return Object.assign({}, state, { taskId: value });
+}
 
-const Home = () => (
-    <div>
-        <h1>Welcome to the workshop</h1>
-        <p>text....</p>
-    </div>
-);
+// TASK_STOP
+function setTaskStop (state, value) {
+    return Object.assign({}, state, { taskId: value });
+}
 
-const Menu = ({ tasks }) => (<div>
-    <h2>Schedule</h2>
-    <h3>1) Nodeschools</h3>
-    <ol>
-        <li>
-            <a href="https://github.com/workshopper/learnyounode" target="_blank">
-                Learn you node
-            </a>
-        </li>
-        <li>
-            <a href="https://github.com/npm/how-to-npm" target="_blank">
-                How to NPM
-            </a>
-        </li>
-    </ol>
-    <h4>Slides:</h4>
-    <p>...</p>
-    <h3>2) Tasks:</h3>
-    <ol>
-        <li>
-            <a href="#home">Start</a>
-        </li>
-        {tasks.map((task, i) => (
-            <li key={i}>
-                <a href={"#" + task.key}>{task.name}</a>
-            </li>
-        ))}
-    </ol>
+// SHOW_HINT
+function showHint(state, value) {
+    return Object.assign({}, state, { taskId: value });
+}
 
-    <h3>Preparations</h3>
-    <ol>
-        <li>
-            <a href="#preperations">Preparations</a>
-        </li>
-    </ol>
-</div>
-)
+const appStateReducer = function (state = initialInputState(), action) {
+    if (!state) {
+        throw new Error('Missing state');
+    }
+    switch (action.type) {
+        case actions.ADD_TASK:
+            return addTask(state, action.value);
+        case actions.SET_USER_INFO:
+            return setUserInfo(state, action.value);
+        case actions.SHOW_TASK:
+            return showTask(state, action.value);
+        case actions.TASK_START:
+            return setTaskStart(state, action.value);
+        case actions.TASK_STOP:
+            return setTaskStop(state, action.value);
+        case actions.SHOW_HINT:
+            return showHint(state, action.value);
+        default:
+            return state;
+    }
+};
 
 window.tasks = (function () {
-    var tasks = {
-        home: {},
-    };
 
-    var taskList = [];
+    const taskList = [];
 
     function parseHash (hash) {
         return String(hash).replace(/^#/, '');
@@ -116,29 +96,44 @@ window.tasks = (function () {
             .toLowerCase();
     }
 
+    const store = createStore(
+        appStateReducer,
+        initialInputState(),
+        window.devToolsExtension ? window.devToolsExtension() : undefined
+    );
+
     function render (task, tasks) {
-        var elem = document.getElementById('content');
-        ReactDOM.render(<App task={task} tasks={tasks} />, elem);
+        const elem = document.getElementById('content');
+        ReactDOM.render((<Provider store={store}><App /></Provider>), elem);
     }
 
     setTimeout(function init () {
         window.addEventListener('popstate', handleRoute);
         function handleRoute () {
-            var key = toKey(parseHash(window.location.hash));
-            if (tasks[key]) {
-                render(tasks[key], taskList);
-            } else {
-                render(tasks.home, taskList);
+            const key = toKey(parseHash(window.location.hash));
+            if (key) {
+                // render(tasks[key], taskList);
+                store.dispatch({
+                    type: actions.SHOW_TASK,
+                    value: key,
+                });
             }
         }
+        render(tasks.home, taskList);
         handleRoute();
-        console.log({ tasks: tasks })
+        // console.log({ tasks: tasks })
     }, 0);
 
-    return function register (taskName, taskSpec) {
-        taskSpec.name = taskName;
-        taskSpec.key = toKey(taskName);
-        tasks[taskSpec.key] = taskSpec;
-        taskList.push(taskSpec);
+    return function register (taskName, task) {
+        task.name = taskName;
+        task.id = toKey(taskName);
+        // tasks[taskSpec.key] = taskSpec;
+        // taskList.push(taskSpec);
+        store.dispatch({
+            type: actions.ADD_TASK,
+            value: task
+        });
+
+
     };
 })(window.nunjucks);

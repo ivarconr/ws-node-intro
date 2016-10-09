@@ -1,0 +1,11 @@
+{
+  "name": "docs",
+  "private": true,
+  "devDependencies": {
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "scripts": {
+    "start": "webpack-dev-server"
+  }
+}
