@@ -16,7 +16,15 @@ window.App = () => (<div className="line">
 const Home = () => (
     <div>
         <h1>Welcome to the workshop</h1>
-        <p>This workshop has 2 parts, first 2 sessions with nodeschools, then 3 tasks creating a simple</p>
+        <p>This workshop has 2 parts.</p>
+        <p>first 2 sessions with nodeschools, then 3 main tasks creating a chat application</p>
+        <div className="mod green-skin mhl">
+            <div className="inner">
+                <div className="bd">
+                    <p>Solutions are available on Github, but do not check them until afterwards.</p>
+                </div>
+            </div>
+        </div>
     </div>
 );
 
@@ -43,7 +51,14 @@ const TaskComponent = ({
         <p>{task.description}</p>
 
         {!startTime && <p><button className="primary" onClick={() => startTask(task.id)}>Start</button></p>}
-        {stopTime && <p>Task completed in {Math.round((stopTime - startTime) / 1000)} seconds</p>}
+        {stopTime &&
+            <div className="mod green-skin mhl">
+            <div className="inner">
+                <div className="bd">
+                    <p>Task completed in {Math.round((stopTime - startTime) / 1000)} seconds</p>
+                </div>
+            </div>
+        </div>}
         {startTime && subTask && (
             <div>
                 <p>
@@ -139,7 +154,7 @@ const HintsComponent = ({ hintIds, hints, subTaskId, id, showHint }) => (
             const hintId = [subTaskId, id, i].join('__');
             return (<li key={i}>
                 {hintIds && hintIds[i] ?
-                    hint : <span className="link linkblock clickable" onClick={() => showHint(hintId)}>Show hint</span>}
+                    hint : <span className="link linkblock clickable" onClick={() => showHint(hintId)}>Show {id}</span>}
             </li>);
         }) }
     </ul>
