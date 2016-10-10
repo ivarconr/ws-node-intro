@@ -6,17 +6,17 @@ window.tasks('Task 1', {
     children: [
         {
             title: 'A',
-            description: 'In the first task you should familirize yourself with `readline` use to ask a question to be answered with the `process.stdin` and print the response to `process.stdout`.',
+            description: 'In the first task you should familirize yourself with `readline`. Use `readline` to ask a question (e.g. What is your name?) to be answered with the inputstream `process.stdin` and print the response to the writestream`process.stdout`.',
             hints: [
                 'https://nodejs.org/api/readline.html#readline_readline',
             ],
-            solution: 'a.js',
+            solution: 'a/a.js',
             time: 5,
             presenterTasks: [],
         },
         {
             title: 'B',
-            description: 'In this task you will write a small client only able to chat with yourself. You must get `readline` to ask for your _name_, and then react to line input and print as a message to `process.stdout`. When printing, you should prefix the message with the provided name. After a message has been submittet, it should prompt for a new message.',
+            description: 'In this task you will write a small script that should make it possible to chat with yourself. You must get `readline` to ask for your _name_, and then react to line input and print as a message to `process.stdout`. When printing, you should prefix the message with the provided name. After a message has been submittet, it should prompt for a new message.',
             hints: [
                 'Use same interface as _task 1a_',
                 'Ask a question via the interface.',
@@ -26,12 +26,13 @@ window.tasks('Task 1', {
             solution: 'b.js',
             time: 10,
             presenterTasks: [
+                'Show gif / result',
                 'Remember to start rabbitmq and the message sender in `finn-workshop-helpers`',
             ],
         },
         {
             title: 'C',
-            description: 'Now we will begin to implement an actual chat, where you can reach other people. You will use the provided `finn-workshop-helpers` module and use the `queue` to connnect with RabbitMQ. You should print messages emitted from the queue to the `console.log`. You will need to use a unique queue-name to asure that only you consume this queue.',
+            description: 'Now we will begin to implement an actual chat. In this task you will only consume messages. You will use the provided `finn-workshop-helpers` module and use the `queue` to connnect with RabbitMQ. You should print messages emitted from the queue to the `coxrxnsole.log`. You will need to use a unique queue-name to ensure that only you consume this queue.',
             prerequisites: [
                 'ampqURL',
             ],
@@ -43,6 +44,7 @@ window.tasks('Task 1', {
             solution: 'c.js',
             time: 10,
             presenterTasks: [
+                'spawn sender bot',
                 'ampqURL',
             ],
         },
