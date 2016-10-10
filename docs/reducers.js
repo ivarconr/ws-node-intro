@@ -1,6 +1,6 @@
 const Immutable = window.Immutable;
 
-const PROGRESS_STORE_VER = 5;
+const PROGRESS_STORE_VER = 0;
 
 window.actions = {
     ADD_TASK: 'ADD_TASK',
@@ -32,9 +32,11 @@ function store (result, key) {
 }
 
 window.initialInputState = () => Immutable.fromJS({
-    userName: null,
     taskId: null,
-    progressState: getStored('progressState') || {},
+    progressState: getStored('progressState') || {
+        start: Date.now(),
+        userName: null,
+    },
     tasks: {},
 });
 
@@ -69,7 +71,7 @@ function addTask (state, value) {
 
 // SET_USER_INFO
 function setUserInfo (state, value) {
-    return state.set('userName', value);
+    return state.setIn(['progressState', 'userName'], value);
 }
 
 function taskIsNotReady (state, value) {

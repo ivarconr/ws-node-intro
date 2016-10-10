@@ -45,8 +45,25 @@ const TaskComponent = ({
         canGoPrev,
         goNextSubTask,
         goPrevSubTask,
+        hasUserName,
+        setUserName,
     }) => (
-    <div>
+        hasUserName === false ?
+        (<form onSubmit={setUserName}>
+            <h1>{task.title}</h1>
+
+            <div className="formelement">
+                <label>Please input username before starting:</label>
+                <div className="input">
+                    <input id="username" type="text" />
+                </div>
+
+            </div>
+            <div className="formelement">
+                <button>Start</button>
+            </div>
+        </form>) :
+    (<div>
         <h1>{task.title}</h1>
         <p>{task.description}</p>
 
@@ -101,9 +118,7 @@ const TaskComponent = ({
 
             </div>
         )}
-
-
-    </div>
+    </div>)
 );
 
 const Task = connect((state) => {
@@ -113,6 +128,7 @@ const Task = connect((state) => {
     const canGoPrev = subTaskId > 0;
     const canGoNext = (subTaskId + 1) < task.children.length;
     return {
+        hasUserName: !!state.getIn(['progressState', 'userName']),
         task,
         startTime: state.getIn(['progressState', id, 'start']),
         stopTime: state.getIn(['progressState', id, 'stop']),
@@ -121,6 +137,13 @@ const Task = connect((state) => {
         subTask: task.children[subTaskId],
     };
 }, (dispatch) => ({
+    setUserName (e) {
+        e.preventDefault();
+        dispatch({
+            type: window.actions.SET_USER_INFO,
+            value: document.getElementById('username').value.trim(),
+        });
+    },
     goNextSubTask (value) {
         dispatch({
             type: window.actions.SHOW_NEXT_SUB_TASK,
