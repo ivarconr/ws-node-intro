@@ -20,12 +20,7 @@ const Home = () => (
     </div>
 );
 
-const Content = ({ contentId }) => (
-    (
-        contentId === 'home' ? <Home /> :
-        <Task />
-    )
-);
+const Content = ({ contentId }) => (contentId === 'home' ? <Home /> : <Task />);
 
 const ContentContainer = connect((state) => ({
     contentId: state.get('taskId') || 'home',
@@ -45,7 +40,7 @@ const TaskComponent = ({
     }) => (
     <div>
         <h1>{task.title}</h1>
-        <p><strong>Description:</strong> {task.description}</p>
+        <p>{task.description}</p>
 
         {!startTime && <p><button className="primary" onClick={() => startTask(task.id)}>Start</button></p>}
         {stopTime && <p>Task completed in {Math.round((stopTime - startTime) / 1000)} seconds</p>}
@@ -128,20 +123,35 @@ const Task = connect((state) => {
             type: window.actions.TASK_STOP,
             value,
         });
-    }
+    },
 }))(TaskComponent);
 
-const HintsComponent = ({ hints, parentId, id, showHint }) => (
+const HintsComponent = ({ hintIds, hints, subTaskId, id, showHint }) => (
+    <div>
     <ul className="bullets">
-        { hints.map((hint, i) => (
-            <li key={i} onClick={() => showHint([parentId, id, i].join('-'))}>
-                {i + 1}: {hint}
-            </li>
-        )) }
+        { hints.map((hint, i) => {
+            const hintId = [subTaskId, id, i].join('__');
+            return (<li key={i}>
+                {hintIds && hintIds[i] ?
+                    hint : <span className="link linkblock clickable" onClick={() => showHint(hintId)}>Show hint</span>}
+            </li>);
+        }) }
     </ul>
+    </div>
 );
 
-const Hints = connect(null, (dispatch) => ({
+const Hints = connect((state, { id }) => {
+    const taskId = state.getIn(['taskId']);
+    const subTaskId = state.getIn(['progressState', taskId, 'subTaskId']);
+    const subTaskStateId = [taskId, subTaskId].join('__');
+    const hintIds = state.getIn([
+        'progressState', taskId, 'subTasks', subTaskStateId, id,
+    ]).toJS();
+    return {
+        subTaskId: subTaskStateId,
+        hintIds,
+    };
+}, (dispatch) => ({
     showHint (value) {
         return dispatch({
             type: window.actions.SHOW_HINT,

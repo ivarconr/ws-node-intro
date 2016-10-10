@@ -14,20 +14,8 @@ window.actions = {
 window.initialInputState = () => Immutable.fromJS({
     userName: null,
     taskId: null,
-    progressState: {
-        /*
-        learn-you-node,
-        how-to-npm,
-        task-1: {
-            hint-id-1: true,
-            startTime,
-            stopTime,
-        }
-        */
-    },
-    tasks: {
-        /* */
-    },
+    progressState: {},
+    tasks: {},
 });
 
 // ADD_TASK
@@ -38,12 +26,17 @@ function addTask (state, value) {
             start: null,
             stop: null,
             subTaskId: 0,
-            subTasks: {
-
-            },
-            hints: {
-
-            },
+            subTasks: value.children.reduce((o, subTask, index) => {
+                // MUTATE:
+                subTask.id = [value.id, index].join('__');
+                o[subTask.id] = {
+                    start: null,
+                    stop: null,
+                    hints: {},
+                    extras: {},
+                };
+                return o;
+            }, {}),
         }));
         return ctx;
     });
@@ -98,8 +91,9 @@ function setTaskStop (state, value) {
 
 // SHOW_HINT
 function showHint (state, value) {
-    const [id, hintId] = value.id.split('-');
-    return state.setIn(['progressState', id, 'hint', hintId], true);
+    // oh gosh.....
+    const [id, subTaskId, type, hintId] = value.split('__');
+    return state.setIn(['progressState', id, 'subTasks', [id, subTaskId].join('__'), type, hintId], Date.now());
 }
 
 window.appStateReducer = (state = window.initialInputState(), action) => {
@@ -107,7 +101,7 @@ window.appStateReducer = (state = window.initialInputState(), action) => {
         throw new Error('Missing state');
     }
 
-    console.log(action.type, action.value);
+    // console.log(action.type, action.value, state.get('progressState').toJS());
     switch (action.type) {
         case window.actions.ADD_TASK:
             return addTask(state, action.value);

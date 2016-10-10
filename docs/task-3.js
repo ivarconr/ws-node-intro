@@ -1,6 +1,6 @@
 window.tasks('Task 3', {
     title: 'Task 3',
-    description: 'Task 3 description',
+    description: 'Create a chat webapp',
     children: [
         {
             title: 'A',

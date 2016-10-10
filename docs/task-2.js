@@ -1,6 +1,6 @@
 window.tasks('Task 2', {
     title: 'Task 2',
-    description: '* checkout the docs for express http://expressjs.com/',
+    description: 'Express.js exercises. Checkout the docs for express http://expressjs.com/',
     children: [
         {
             title: 'A',
