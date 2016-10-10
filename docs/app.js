@@ -47,6 +47,11 @@ const TaskComponent = ({ task }) => (
             <div key={i}>
                 <h2>{task.title} {subTask.title}</h2>
                 <p>{subTask.description}</p>
+                {subTask.steps && <ul className="bullets">
+                    {subTask.steps.map((step, i) => (
+                        <li key={i}>{step}</li>
+                    ))}
+                </ul>}
 
                 {subTask.image && <img src={subTask.image} />}
 
