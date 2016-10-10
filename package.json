@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "npm run install-tasks",
     "lint": "eslint .",
-    "install-tasks": "cd tasks/task-1 && npm install && cd ../task-2 && npm install && cd ../task-3 && npm install && cd ../../",
+    "install-tasks": "cd helpers/ && npm install && cd ../ && cd tasks/task-1 && npm install && cd ../task-2 && npm install && cd ../task-3 && npm install && cd ../../",
     "test": "node ./test-all-solutions.js"
   },
   "repository": {
