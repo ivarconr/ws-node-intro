@@ -82,7 +82,7 @@ const TaskComponent = ({
                 {canGoPrev && <button className="" onClick={() => goPrevSubTask(task.id)}>Previous</button>}
                 &nbsp;
                 {canGoNext && <button className="primary" onClick={() => goNextSubTask(task.id)}>Show next</button>}
-                {!canGoNext && <button className="fright" onClick={() => stopTask(task.id)}>Complete task</button>}
+                {!canGoNext && <button className="fright" onClick={() => stopTask(task.id)}>Complete {task.title}</button>}
                 </p>
 
                 <h2>{task.title} {subTask.title}</h2>
