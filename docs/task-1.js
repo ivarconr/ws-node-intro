@@ -1,5 +1,3 @@
-'use strict';
-
 window.tasks('Task 1', {
     title: 'Task 1',
     description: 'Task 1 description',

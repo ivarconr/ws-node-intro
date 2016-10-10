@@ -1,5 +1,9 @@
 {
-    "extends": "finn",
+    "extends": [
+      "finn",
+      "finn/es-modules",
+      "finn-react"
+    ],
     "env": {
         "browser": true
     }

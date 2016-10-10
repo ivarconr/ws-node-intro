@@ -1,11 +1,11 @@
-'use strict';
-
 const Immutable = window.Immutable;
 
 window.actions = {
     ADD_TASK: 'ADD_TASK',
     SET_USER_INFO: 'SET_USER_INFO', // - username
-    SHOW_TASK: 'TASK_SHOW',
+    SHOW_TASK: 'SHOW_TASK',
+    SHOW_NEXT_SUB_TASK: 'SHOW_NEXT_SUB_TASK',
+    SHOW_PREV_SUB_TASK: 'SHOW_PREV_SUB_TASK',
     TASK_START: 'TASK_START', // - taskId
     TASK_STOP: 'TASK_STOP', // - taskId
     SHOW_HINT: 'SHOW_HINT', // - taskId, hintId
@@ -34,7 +34,17 @@ window.initialInputState = () => Immutable.fromJS({
 function addTask (state, value) {
     return state.withMutations((ctx) => {
         ctx.setIn(['tasks', value.id], value);
-        ctx.setIn(['progressState', value.id], { hints: {}});
+        ctx.setIn(['progressState', value.id], Immutable.fromJS({
+            start: null,
+            stop: null,
+            subTaskId: 0,
+            subTasks: {
+
+            },
+            hints: {
+
+            },
+        }));
         return ctx;
     });
 }
@@ -58,13 +68,24 @@ function showTask (state, value) {
     return state.set('taskId', value);
 }
 
+// SHOW_NEXT_SUB_TASK
+function showNextSubTask (state, value) {
+    const index = state.getIn(['progressState', value, 'subTaskId']);
+    return state.setIn(['progressState', value, 'subTaskId'], index + 1);
+}
+
+// SHOW_PREV_SUB_TASK
+function showPrevSubTask (state, value) {
+    const index = state.getIn(['progressState', value, 'subTaskId']);
+    return state.setIn(['progressState', value, 'subTaskId'], index - 1);
+}
 
 // TASK_START
 function setTaskStart (state, value) {
     if (taskIsNotReady(state, value)) {
         return state;
     }
-    return state.setIn(['progressState', value.id, 'start'], new Date());
+    return state.setIn(['progressState', value, 'start'], Date.now());
 }
 
 // TASK_STOP
@@ -72,7 +93,7 @@ function setTaskStop (state, value) {
     if (taskIsNotReady(state, value)) {
         return state;
     }
-    return state.setIn(['progressState', value.id, 'stop'], new Date());
+    return state.setIn(['progressState', value, 'stop'], Date.now());
 }
 
 // SHOW_HINT
@@ -85,6 +106,8 @@ window.appStateReducer = (state = window.initialInputState(), action) => {
     if (!state) {
         throw new Error('Missing state');
     }
+
+    console.log(action.type, action.value);
     switch (action.type) {
         case window.actions.ADD_TASK:
             return addTask(state, action.value);
@@ -92,6 +115,10 @@ window.appStateReducer = (state = window.initialInputState(), action) => {
             return setUserInfo(state, action.value);
         case window.actions.SHOW_TASK:
             return showTask(state, action.value);
+        case window.actions.SHOW_NEXT_SUB_TASK:
+            return showNextSubTask(state, action.value);
+        case window.actions.SHOW_PREV_SUB_TASK:
+            return showPrevSubTask(state, action.value);
         case window.actions.TASK_START:
             return setTaskStart(state, action.value);
         case window.actions.TASK_STOP:

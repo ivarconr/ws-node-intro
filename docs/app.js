@@ -1,6 +1,6 @@
 const React = window.React;
-const PropTypes = React.PropTypes;
-const Redux = window.Redux;
+// const PropTypes = React.PropTypes;
+// const Redux = window.Redux;
 const ReactRedux = window.ReactRedux;
 const connect = ReactRedux.connect;
 
@@ -20,31 +20,44 @@ const Home = () => (
     </div>
 );
 
-
-const Preparations = () => (
-    <div>
-        <h1>Preparations</h1>
-        <p>....</p>
-    </div>
+const Content = ({ contentId }) => (
+    (
+        contentId === 'home' ? <Home /> :
+        <Task />
+    )
 );
 
-const Content = ({ contentId }) => {
-    return (
-        contentId === 'home' ? <Home /> :
-        contentId === 'preperations' ? <Preparations /> :
-        <Task />
-    );
-};
 const ContentContainer = connect((state) => ({
-    contentId: state.taskId || 'home'
+    contentId: state.get('taskId') || 'home',
 }))(Content);
 
-const TaskComponent = ({ task }) => (
+const TaskComponent = ({
+        task,
+        startTask,
+        stopTask,
+        startTime,
+        stopTime,
+        subTask,
+        canGoNext,
+        canGoPrev,
+        goNextSubTask,
+        goPrevSubTask,
+    }) => (
     <div>
         <h1>{task.title}</h1>
         <p><strong>Description:</strong> {task.description}</p>
-        {task.children.map((subTask, i) => (
-            <div key={i}>
+
+        {!startTime && <p><button className="primary" onClick={() => startTask(task.id)}>Start</button></p>}
+        {stopTime && <p>Task completed in {Math.round((stopTime - startTime) / 1000)} seconds</p>}
+        {startTime && subTask && (
+            <div>
+                <p>
+                {canGoPrev && <button className="" onClick={() => goPrevSubTask(task.id)}>Previous</button>}
+                &nbsp;
+                {canGoNext && <button className="primary" onClick={() => goNextSubTask(task.id)}>Show next</button>}
+                {!canGoNext && <button className="fright" onClick={() => stopTask(task.id)}>Complete task</button>}
+                </p>
+
                 <h2>{task.title} {subTask.title}</h2>
                 <p>{subTask.description}</p>
                 {subTask.steps && <ul className="bullets">
@@ -58,37 +71,84 @@ const TaskComponent = ({ task }) => (
                 {subTask.hints && subTask.hints.length > 0 ?
                     <div>
                         <h4>Hints</h4>
-                        <Hints hints={subTask.hints} />
+                        <Hints hints={subTask.hints} parentId={task.id} id="hints" />
                     </div> :
                     null
                 }
 
                 {subTask.extras ? <div>
                     <h4>Extra stuff to do:</h4>
-                    <Hints hints={subTask.extras} />
+                    <Hints hints={subTask.extras} parentId={task.id} id="extras" />
                     </div> : null}
 
                 <p>Solution: {subTask.solution}</p>
+
             </div>
-        ))}
+        )}
+
+
     </div>
 );
 
-const Task = connect((state) => ({
-    task: state.tasks[state.taskId]
-}), (dispatch) => ({
-
+const Task = connect((state) => {
+    const id = state.get('taskId');
+    const task = state.getIn(['tasks', id]);
+    const subTaskId = state.getIn(['progressState', id, 'subTaskId']);
+    const canGoPrev = subTaskId > 0;
+    const canGoNext = (subTaskId + 1) < task.children.length;
+    return {
+        task,
+        startTime: state.getIn(['progressState', id, 'start']),
+        stopTime: state.getIn(['progressState', id, 'stop']),
+        canGoPrev,
+        canGoNext,
+        subTask: task.children[subTaskId],
+    };
+}, (dispatch) => ({
+    goNextSubTask (value) {
+        dispatch({
+            type: window.actions.SHOW_NEXT_SUB_TASK,
+            value,
+        });
+    },
+    goPrevSubTask (value) {
+        dispatch({
+            type: window.actions.SHOW_PREV_SUB_TASK,
+            value,
+        });
+    },
+    startTask (value) {
+        dispatch({
+            type: window.actions.TASK_START,
+            value,
+        });
+    },
+    stopTask (value) {
+        dispatch({
+            type: window.actions.TASK_STOP,
+            value,
+        });
+    }
 }))(TaskComponent);
 
-const HintsComponent = ({ hints }) => (
+const HintsComponent = ({ hints, parentId, id, showHint }) => (
     <ul className="bullets">
         { hints.map((hint, i) => (
-            <li key={i}>{i+1}: {hint}</li>
+            <li key={i} onClick={() => showHint([parentId, id, i].join('-'))}>
+                {i + 1}: {hint}
+            </li>
         )) }
     </ul>
 );
 
-const Hints = connect()(HintsComponent);
+const Hints = connect(null, (dispatch) => ({
+    showHint (value) {
+        return dispatch({
+            type: window.actions.SHOW_HINT,
+            value,
+        });
+    },
+}))(HintsComponent);
 
 const MenuComponent = ({ tasksList }) => (<div>
     <svg viewBox="0 0 124 64" className="mvm mhl">
@@ -103,9 +163,7 @@ const MenuComponent = ({ tasksList }) => (<div>
         <li>
             <a href="#home">Frontpage</a>
         </li>
-        <li>
-            <a href="#preperations">Preparations</a>
-        </li>
+
         <li>
             <a href="https://docs.google.com/presentation/d/1IBXeQxZOrAQsXv4zXUOStNEDORhW3nyzMNrs9HY5yW0/edit?usp=sharing" target="_blank">
                 Workshop slides
@@ -131,16 +189,19 @@ const MenuComponent = ({ tasksList }) => (<div>
     <ol>
         {tasksList.map((task, i) => (
             <li key={i}>
-                <input type="checkbox" />&nbsp;
-                <a href={"#" + task.id}>{task.name}</a>
+                <input type="checkbox" disabled checked={task.completed}/>&nbsp;
+                <a href={`#${task.id}`}>{task.name}</a>
             </li>
         ))}
     </ol>
 
 </div>
-)
+);
 
 const Menu = connect((state) => ({
-    // log: console.log(state),
-    tasksList: Object.keys(state.tasks).map(taskKey => state.tasks[taskKey]),
+    tasksList: state.get('tasks').toArray()
+    .map(entry => {
+        entry.completed = state.getIn(['progressState', entry.id, 'stop']);
+        return entry;
+    }),
 }))(MenuComponent);

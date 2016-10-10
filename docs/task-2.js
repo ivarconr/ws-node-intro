@@ -1,5 +1,3 @@
-'use strict';
-
 window.tasks('Task 2', {
     title: 'Task 2',
     description: '* checkout the docs for express http://expressjs.com/',

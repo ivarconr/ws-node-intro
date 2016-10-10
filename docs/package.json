@@ -2,6 +2,7 @@
   "name": "docs",
   "private": true,
   "devDependencies": {
+    "@types/immutable": "^3.8.4",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
   },
