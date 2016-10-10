@@ -48,6 +48,8 @@ const TaskComponent = ({ task }) => (
                 <h2>{task.title} {subTask.title}</h2>
                 <p>{subTask.description}</p>
 
+                {subTask.image && <img src={subTask.image} />}
+
                 {subTask.hints && subTask.hints.length > 0 ?
                     <div>
                         <h4>Hints</h4>

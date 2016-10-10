@@ -10,6 +10,7 @@ window.tasks('Task 1', {
             hints: [
                 'https://nodejs.org/api/readline.html#readline_readline',
             ],
+            image: './1a.gif',
             solution: 'a/a.js',
             time: 5,
             presenterTasks: [],
@@ -23,6 +24,7 @@ window.tasks('Task 1', {
                 'React to the `line`-event.',
                 'Remember to reprompt after printing.',
             ],
+            image: './1b.gif',
             solution: 'b.js',
             time: 10,
             presenterTasks: [
@@ -41,6 +43,7 @@ window.tasks('Task 1', {
                 'remember to also check errors.',
                 'Find and read the readme',
             ],
+            image: './1c.gif',
             solution: 'c.js',
             time: 10,
             presenterTasks: [
@@ -59,6 +62,7 @@ window.tasks('Task 1', {
             extras: [
                 'Add colors to output',
             ],
+            image: './1d.gif',
             solution: 'd.js',
             time: 15,
             presenterTasks: [],
