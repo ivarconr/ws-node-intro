@@ -55,11 +55,17 @@ const TaskComponent = ({
 
                 <h2>{task.title} {subTask.title}</h2>
                 <p>{subTask.description}</p>
+
                 {subTask.steps && <ul className="bullets">
                     {subTask.steps.map((step, i) => (
                         <li key={i}>{step}</li>
                     ))}
                 </ul>}
+
+
+                {subTask.files && subTask.files.map((entry, i) => (
+                    <p key={i}><a href={entry.path} target="_blank">Provided file: {entry.name}</a></p>
+                ))}
 
                 {subTask.image && <img className="pvm phl" src={subTask.image} />}
 
@@ -76,7 +82,7 @@ const TaskComponent = ({
                     <Hints hints={subTask.extras} parentId={task.id} id="extras" />
                     </div> : null}
 
-                <p>Solution: {subTask.solution}</p>
+                    {subTask.solution && <p>Solution: {subTask.solution}</p>}
 
             </div>
         )}

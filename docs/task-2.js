@@ -53,7 +53,10 @@ window.tasks('Task 2', {
                 'Make the provided test green',
             ],
             files: [
-                'https://raw.githubusercontent.com/ivarconr/ws-node-intro/master/tasks/task-2/c/app.test.js',
+                {
+                    name: 'app.test.js',
+                    path: 'https://raw.githubusercontent.com/ivarconr/ws-node-intro/master/tasks/task-2/c/app.test.js',
+                },
             ],
             hints: [
                 'Use the npm package `nunjucks` (`npm install nunjucks`)',
