@@ -42,3 +42,4 @@
   * Add a global handler for `uncaughtException` and `unhandledRejection` 
   * add a express middleware to output an error stack for development
   * do not output the stacktrace when `process.env.NODE_ENV === 'production'`
+The handler should receive a query string parameter called `name`, that you inject into the render function
