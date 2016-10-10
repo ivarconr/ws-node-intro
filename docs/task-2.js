@@ -8,9 +8,9 @@ window.tasks('Task 2', {
             title: 'A',
             description: 'create simple \'hello world\' app in a file called `a.js`',
             steps: [
-                'instantiate express',
-                'create a handler function that renders the string `hello world`',
-                'check the result in a browser.',
+                'Instantiate express and listen on port 3000',
+                'You webapp should send `hello world` on request to root `/`',
+                'Check the result in a browser or with curl.',
             ],
             hints: [
                 'Express docs: http://expressjs.com/',
@@ -36,7 +36,7 @@ window.tasks('Task 2', {
             description: 'Write a test for `a.js` using supertest',
             steps: [
                 'Separate code from `a.js` into 2 separate files: (`server.js` and `app.js`).',
-                'Let app.js export the instantiated express-`app`object, and make server.js call `app.listen` on the correct port number.',
+                'Let app.js export the instantiated express-`app`object, and make `server.js` call `app.listen` on the correct port number.',
                 'Make sure the app still works',
                 'Create a test file `app-test.js` and test that the server responds with 200 ok and "Hello World" string.',
             ],
@@ -50,7 +50,7 @@ window.tasks('Task 2', {
             description: 'Render a view with nunjucks.',
             steps: [
                 'Create a new route `/` that renders a nunjucks template.',
-                'The view should render the string "hei <name>", where name is a variable that is injected with nunjucks.',
+                'The view should render the string "hei <name>".',
                 'The handler should receive a query string parameter called `name`, that you inject into the render function',
                 'Make the provided test green',
             ],
@@ -67,8 +67,9 @@ window.tasks('Task 2', {
             title: 'D',
             description: 'Create a middleware function for request timing.',
             steps: [
-                'Continue on your existing app',
+                'Continue on your existing app from c)',
                 'Create a middleware function that logs the request time to the console.',
+                'Special hint: Remember that the http response object is an event emitter.',
             ],
             hints: [
                 'Express middlewares: http://expressjs.com/en/guide/writing-middleware.html',
@@ -80,7 +81,7 @@ window.tasks('Task 2', {
         },
         {
             title: 'E',
-            description: 'Make an HTML form with input fields name and message.',
+            description: 'Make an HTML form with input fields: `name` and `message`',
             steps: [
                 'Post the form to the new route and print the result.',
                 'Render the same view after the post, but also print the submitted name below the form.',
@@ -103,7 +104,7 @@ window.tasks('Task 2', {
         },
         {
             title: 'E-2',
-            description: 'Test with supertets',
+            description: 'Test your webapp with supertest',
             steps: [
                 'Create a test that submits the form, and verifies that the new view renders the name parameter',
             ],
