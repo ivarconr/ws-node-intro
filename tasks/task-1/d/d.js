@@ -28,7 +28,6 @@ namePrompter.then((userName) => {
                 if (input && input.trim()) {
                     q.sendMessage(userName, input.trim());
                 }
-                return false;
             });
         })
         .on('message', ({ name, message }) => write(`${chalk.bgYellow.blue.bold(` ${name} `)}: ${message}`))
