@@ -53,7 +53,7 @@ const TaskComponent = ({ task }) => (
                     ))}
                 </ul>}
 
-                {subTask.image && <img src={subTask.image} />}
+                {subTask.image && <img className="pvm phl" src={subTask.image} />}
 
                 {subTask.hints && subTask.hints.length > 0 ?
                     <div>
@@ -116,13 +116,11 @@ const MenuComponent = ({ tasksList }) => (<div>
     <h3>1) Nodeschools</h3>
     <ol>
         <li>
-            <input type="checkbox" />&nbsp;
             <a href="https://github.com/workshopper/learnyounode" target="_blank">
                 Learn you node
             </a>
         </li>
         <li>
-            <input type="checkbox" />&nbsp;
             <a href="https://github.com/npm/how-to-npm" target="_blank">
                 How to NPM
             </a>
