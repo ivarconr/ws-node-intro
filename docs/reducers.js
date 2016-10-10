@@ -1,5 +1,7 @@
 const Immutable = window.Immutable;
 
+const PROGRESS_STORE_VER = 5;
+
 window.actions = {
     ADD_TASK: 'ADD_TASK',
     SET_USER_INFO: 'SET_USER_INFO', // - username
@@ -11,10 +13,28 @@ window.actions = {
     SHOW_HINT: 'SHOW_HINT', // - taskId, hintId
 };
 
+function getStored (key) {
+    let item;
+    try {
+        item = window.localStorage.getItem(`${key}${PROGRESS_STORE_VER}`);
+        return JSON.parse(item);
+    } catch (e) {
+        // console.log(e, item);
+    }
+}
+
+function store (result, key) {
+    try {
+        window.localStorage.setItem(`${key}${PROGRESS_STORE_VER}`, JSON.stringify(result));
+    } catch (e) {
+        // console.log(e);
+    }
+}
+
 window.initialInputState = () => Immutable.fromJS({
     userName: null,
     taskId: null,
-    progressState: {},
+    progressState: getStored('progressState') || {},
     tasks: {},
 });
 
@@ -22,22 +42,27 @@ window.initialInputState = () => Immutable.fromJS({
 function addTask (state, value) {
     return state.withMutations((ctx) => {
         ctx.setIn(['tasks', value.id], value);
-        ctx.setIn(['progressState', value.id], Immutable.fromJS({
-            start: null,
-            stop: null,
-            subTaskId: 0,
-            subTasks: value.children.reduce((o, subTask, index) => {
-                // MUTATE:
-                subTask.id = [value.id, index].join('__');
-                o[subTask.id] = {
-                    start: null,
-                    stop: null,
-                    hints: {},
-                    extras: {},
-                };
-                return o;
-            }, {}),
-        }));
+
+        // lets default if no state stored
+        if (!ctx.getIn(['progressState', value.id])) {
+            ctx.setIn(['progressState', value.id], Immutable.fromJS({
+                start: null,
+                stop: null,
+                subTaskId: 0,
+                subTasks: value.children.reduce((o, subTask, index) => {
+                    // MUTATE:
+                    subTask.id = [value.id, index].join('__');
+                    o[subTask.id] = {
+                        start: null,
+                        stop: null,
+                        hints: {},
+                        extras: {},
+                    };
+                    return o;
+                }, {}),
+            }));
+        }
+
         return ctx;
     });
 }
@@ -102,24 +127,37 @@ window.appStateReducer = (state = window.initialInputState(), action) => {
     }
 
     // console.log(action.type, action.value, state.get('progressState').toJS());
+
+    let newState = state;
+
     switch (action.type) {
         case window.actions.ADD_TASK:
-            return addTask(state, action.value);
+            newState = addTask(state, action.value);
+            break;
         case window.actions.SET_USER_INFO:
-            return setUserInfo(state, action.value);
+            newState = setUserInfo(state, action.value);
+            break;
         case window.actions.SHOW_TASK:
-            return showTask(state, action.value);
+            newState = showTask(state, action.value);
+            break;
         case window.actions.SHOW_NEXT_SUB_TASK:
-            return showNextSubTask(state, action.value);
+            newState = showNextSubTask(state, action.value);
+            break;
         case window.actions.SHOW_PREV_SUB_TASK:
-            return showPrevSubTask(state, action.value);
+            newState = showPrevSubTask(state, action.value);
+            break;
         case window.actions.TASK_START:
-            return setTaskStart(state, action.value);
+            newState = setTaskStart(state, action.value);
+            break;
         case window.actions.TASK_STOP:
-            return setTaskStop(state, action.value);
+            newState = setTaskStop(state, action.value);
+            break;
         case window.actions.SHOW_HINT:
-            return showHint(state, action.value);
-        default:
-            return state;
+            newState = showHint(state, action.value);
+            break;
     }
+
+    store(newState.get('progressState').toJS(), 'progressState');
+
+    return newState;
 };
