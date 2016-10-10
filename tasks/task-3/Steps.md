@@ -6,10 +6,14 @@ Setup
 
 ## Present: 
 
-**Task a):** Vis meldinger fra meldingskøen på "http//localhost:3000/"
+**Task a):** Create a webapp with express showing messages from the chat client you used in task 1. 
+* Use the provided `finn-workshop-helpers` module and use the queue to connnect with RabbitMQ
+* Use a template engine to ease the HTML rendering
 
-**Task b):** Utvid løsningen fra (a) med et skjema for å sende "navn" og "melding" som publiserer meldingen på køen. 
+**Task b):** Expand on the solution with a HTML from with "name" and "message" fields. 
+* Set up a route to handle POST request
+* Publish the message via the provided `finn-workshop-helpers`. 
 
-**Task c)** Selv om løsingen  fra forrige oppgave "virker" er det ganske mange svakheter:
-* Må refreshe siden for å få nye meldinger
-* Ny melding dukker ikke opp med en gang (må via køen først)
+**Task c)** The solution you have so far is kind of stupid.
+* A chat is usually real-time with messages updated automatically. 
+* Use websockets or similar to make it more real-time-ish!
