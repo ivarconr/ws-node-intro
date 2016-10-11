@@ -22,7 +22,7 @@ const App = ({ users }) => (
         <ul>
         {users.map((user, i) => (
             <li key={i}>
-                <strong>{user.userName}</strong> {user.currentTask && `er på ${user.currentTask}`}
+                <strong>{user.userName}</strong> {user.currentTask && `er på ${user.currentTask} og på subtask ${user.subTask}`}
             </li>
         ))}
         </ul>
@@ -31,7 +31,7 @@ const App = ({ users }) => (
 
 function render (snapshot) {
     const users = Object
-        .keys(snapshot)
+        .keys(snapshot || {})
         .map(key => snapshot[key])
         .map(obj => {
             const tasks = ['task-1', 'task-2', 'task-3'].filter(key => {
@@ -40,6 +40,7 @@ function render (snapshot) {
 
             if (obj[tasks[0]].start) {
                 obj.currentTask = tasks[0];
+                obj.subTask = obj[tasks[0]].subTaskId + 1;
             }
 
 
