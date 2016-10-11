@@ -17,7 +17,7 @@ namePrompter.then((userName) => {
         readline.cursorTo(rl.output, 0);
         console.log(line);
         rl.setPrompt(`${userName} > `);
-        rl.prompt();
+        rl.prompt(true);
     }
 
     queue(config.amqpUri, `my-chat-${userName}`)
