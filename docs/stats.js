@@ -18,23 +18,29 @@ data.on('value', (snapshot) => {
 
 const App = ({ users, topHintUsers }) => (
     <div>
-        <h1>Stats</h1>
-        <ul>
-        {users.map((user, i) => (
-            <li key={i}>
-                <strong>{user.userName}</strong> {user.currentTask && `er på ${user.currentTask} og på subtask ${user.subTask}`}
-            </li>
-        ))}
-        </ul>
-        <h2>Hints heroes</h2>
-        <ol>
-        {topHintUsers.map((user, i) => (
-            <li key={i}>
-                <strong>{user.userName}</strong> {user.hintsUsed}
-            </li>
-        ))}
-        </ol>
 
+        <div className="line">
+            <div className="unit size1of3">
+                <h1>Stats</h1>
+                <ul>
+                {users.map((user, i) => (
+                    <li key={i}>
+                        <strong>{user.userName}</strong> {user.currentTask && <span>er på <strong>{user.currentTask}</strong> / <span style={{color: 'blue'}}>{user.subTask}</span></span>}
+                    </li>
+                ))}
+                </ul>
+            </div>
+            <div className="unit size1of3">
+                <h1>Hints heroes</h1>
+                <ol>
+                {topHintUsers.map((user, i) => (
+                    <li key={i}>
+                        <strong>{user.userName}</strong> {user.hintsUsed}
+                    </li>
+                ))}
+                </ol>
+            </div>
+        </div>
     </div>
 );
 
