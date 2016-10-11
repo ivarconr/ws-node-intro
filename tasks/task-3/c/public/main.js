@@ -35,17 +35,17 @@ document.addEventListener('DOMContentLoaded', function () {
     var messagesContainerEl = document.getElementById('messages');
     var windowHeight = window.innerHeight;
     var scrollHeight = messagesContainerEl.scrollHeight;
-    function isInBottom (scrollTop) {
-        console.log(scrollTop, windowHeight - scrollHeight);
-    }
+    // function isInBottom (scrollTop) {
+    //     console.log(scrollTop, windowHeight - scrollHeight);
+    // }
     function renderMessage (message) {
         var li = document.createElement('li');
         li.innerHTML = '<strong>' + message.name + ':</strong> ' + message.message;
         messagesContainerEl.appendChild(li);
 
-        if (isInBottom(messagesContainerEl.scrollTop)) {
+        // if (isInBottom(messagesContainerEl.scrollTop)) {
             messagesContainerEl.scrollTop = messagesContainerEl.scrollTop.scrollHeight;
-        }
+        // }
     }
 
     // input message
