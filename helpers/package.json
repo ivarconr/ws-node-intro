@@ -4,7 +4,9 @@
   "description": "finn-workshop-helpers",
   "main": "index.js",
   "files": [
-    "queue"
+    "queue",
+    "index.js",
+    "config.js"
   ],
   "scripts": {
     "sender": "node queue/sender.js"
