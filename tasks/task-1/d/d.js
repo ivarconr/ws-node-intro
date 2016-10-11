@@ -8,7 +8,7 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 
-const namePrompter = new Promise((resolve) => rl.question(`${' What is your name? '} `, resolve))
+const namePrompter = new Promise((resolve) => rl.question(' What is your name? ', resolve))
     .catch(console.error);
 
 namePrompter.then((userName) => {
