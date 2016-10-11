@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // output message from server
     var messagesContainerEl = document.getElementById('messages');
-    var windowHeight = window.innerHeight;
-    var scrollHeight = messagesContainerEl.scrollHeight;
+    // var windowHeight = window.innerHeight;
+    // var scrollHeight = messagesContainerEl.scrollHeight;
     // function isInBottom (scrollTop) {
     //     console.log(scrollTop, windowHeight - scrollHeight);
     // }
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         messagesContainerEl.appendChild(li);
 
         // if (isInBottom(messagesContainerEl.scrollTop)) {
-            messagesContainerEl.scrollTop = messagesContainerEl.scrollTop.scrollHeight;
+        messagesContainerEl.scrollTop = messagesContainerEl.scrollHeight;
         // }
     }
 
