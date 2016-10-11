@@ -1,6 +1,6 @@
 const Immutable = window.Immutable;
 
-const PROGRESS_STORE_VER = 11;
+const PROGRESS_STORE_VER = 12;
 
 window.actions = {
     ADD_TASK: 'ADD_TASK',
