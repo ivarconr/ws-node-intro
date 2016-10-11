@@ -1,6 +1,6 @@
 const Immutable = window.Immutable;
 
-const PROGRESS_STORE_VER = 0;
+const PROGRESS_STORE_VER = 11;
 
 window.actions = {
     ADD_TASK: 'ADD_TASK',
@@ -74,17 +74,29 @@ function setUserInfo (state, value) {
     return state.setIn(['progressState', 'userName'], value);
 }
 
+const taskDirection = ['task-1', 'task-2', 'task-3'];
 function taskIsNotReady (state, value) {
-    // check if previous state has been stopped
-    // TODO
+    const shouldBeComplete = taskDirection.slice(0, taskDirection.indexOf(value));
+
+    if (shouldBeComplete.length === 0) {
+        return false;
+    }
+
+    const uncompleted = shouldBeComplete.filter((key) => {
+        const start = state.getIn(['progressState', key, 'start']);
+        const end = state.getIn(['progressState', key, 'stop']);
+        return !(start && end);
+    });
+
+    if (uncompleted.length > 0) {
+        return true;
+    }
+
     return false;
 }
 
 // SHOW_TASK
 function showTask (state, value) {
-    if (taskIsNotReady(state, value)) {
-        return state;
-    }
     return state.set('taskId', value);
 }
 
