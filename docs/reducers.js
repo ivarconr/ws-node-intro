@@ -162,9 +162,13 @@ window.appStateReducer = (state = window.initialInputState(), action) => {
     const data = newState.get('progressState').toJS();
     store(newState.get('progressState').toJS(), 'progressState');
     if (data.userName) {
-        window.fbApp.database()
-            .ref(`progress/${data.userName}`)
-            .set(data);
+        try {
+            window.fbApp.database()
+                .ref(`progress/${data.userName}`)
+                .set(data);
+        } catch (e) {
+
+        }
     }
 
     return newState;

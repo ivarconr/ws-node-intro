@@ -67,7 +67,7 @@ queue(amqpUri, 'busy-queue')
                 sentMessages++;
                 q.sendMessage(name, `${sentMessages}: ${message}`)
                     .catch(console.error);
-            }, Math.round(Math.random() * 10000));
+            }, Math.round(Math.random() * 1000) * 100);
         }
 
         setInterval(() => {
