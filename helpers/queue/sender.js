@@ -22,6 +22,22 @@ const data = [
         name: 'Ivar',
         message: 'oh no!',
     },
+    {
+        name: 'Sveinung',
+        message: 'Awesomesause!',
+    },
+    {
+        name: 'Benjamin',
+        message: 'Vet ikke jeg assa...',
+    },
+    {
+        name: 'MrMicha',
+        message: 'I like guitars!',
+    },
+    {
+        name: 'Foo',
+        message: 'bar baz!',
+    },
 ];
 
 const rl = readline.createInterface({
@@ -51,7 +67,7 @@ queue(amqpUri, 'busy-queue')
                 sentMessages++;
                 q.sendMessage(name, `${sentMessages}: ${message}`)
                     .catch(console.error);
-            }, Math.round(Math.random() * 500));
+            }, Math.round(Math.random() * 10000));
         }
 
         setInterval(() => {
