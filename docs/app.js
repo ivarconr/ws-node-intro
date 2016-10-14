@@ -85,7 +85,7 @@ const TaskComponent = ({
                 {!canGoNext && <button className="fright" onClick={() => stopTask(task.id)}>Complete {task.title}</button>}
                 </p>
 
-                <h2>{task.title} {subTask.title}</h2>
+                <h2><small>{task.title} /</small> {subTask.title}</h2>
                 <p>{subTask.description}</p>
 
                 {subTask.steps && <ul className="bullets">
@@ -223,23 +223,14 @@ const MenuComponent = ({ tasksList }) => (<div>
                 Workshop slides
             </a>
         </li>
-    </ol>
-
-    <h3>1) Nodeschools</h3>
-    <ol>
         <li>
             <a href="https://github.com/workshopper/learnyounode" target="_blank">
                 Learn you node
             </a>
         </li>
-        <li>
-            <a href="https://github.com/npm/how-to-npm" target="_blank">
-                How to NPM
-            </a>
-        </li>
     </ol>
 
-    <h3>2) Tasks:</h3>
+    <h3>Tasks:</h3>
     <ol>
         {tasksList.map((task, i) => (
             <li key={i}>

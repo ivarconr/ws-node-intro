@@ -7,7 +7,7 @@ const chalk = require('chalk');
 
 const filter = (x) => !x.includes('node_modules') &&
     !x.includes('public') &&
-    (!x.includes('.') || x.includes('.js'));
+    (!x.includes('.') || /\.js$/.test(x));
 const rootDir = join(__dirname, 'tasks');
 const files = readDirs(rootDir, filter);
 

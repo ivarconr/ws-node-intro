@@ -3,7 +3,7 @@ window.tasks('Task 1', {
     description: 'Create a chat client inside your terminal',
     children: [
         {
-            title: 'A',
+            title: '1 - Readline basics',
             description: 'In the first task you should familirize yourself with `readline`.',
             steps: [
                 'Use `readline` to ask a question (e.g. What is your name?) to be answered',
@@ -12,13 +12,11 @@ window.tasks('Task 1', {
             hints: [
                 'https://nodejs.org/api/readline.html#readline_readline',
             ],
-            image: './1a.gif',
-            solution: 'a/a.js',
-            time: 5,
+            image: './1-1.gif',
             presenterTasks: [],
         },
         {
-            title: 'B',
+            title: '2 - Text input via terminal',
             description: 'In this task you will write a small script that should make it possible to chat with yourself.',
             steps: [
                 'You must get `readline` to ask for your _name_, and then react to line input and print as a message to `process.stdout`. ',
@@ -31,16 +29,14 @@ window.tasks('Task 1', {
                 'React to the `line`-event.',
                 'Remember to reprompt after printing.',
             ],
-            image: './1b.gif',
-            solution: 'b.js',
-            time: 10,
+            image: './1-2.gif',
             presenterTasks: [
                 'Show gif / result',
                 'Remember to start rabbitmq and the message sender in `finn-workshop-helpers`',
             ],
         },
         {
-            title: 'C',
+            title: '3 - Consume messages from queue',
             description: 'Now we will begin to implement an actual chat. In this task you will only consume messages.',
             steps: [
                 'You will use the provided `finn-workshop-helpers` module and use the `queue` to connnect with RabbitMQ.',
@@ -55,16 +51,14 @@ window.tasks('Task 1', {
                 'remember to also check errors.',
                 'Find and read the readme',
             ],
-            image: './1c.gif',
-            solution: 'c.js',
-            time: 10,
+            image: './1-3.gif',
             presenterTasks: [
                 'spawn sender bot',
                 'ampqURL',
             ],
         },
         {
-            title: 'D',
+            title: '4 - Chat client',
             description: 'In the last task we fill finalize the command-line based chat client.',
             steps: [
                 'Now you should first have the user register their name',
@@ -79,11 +73,8 @@ window.tasks('Task 1', {
             extras: [
                 'Add colors to output',
             ],
-            image: './1d.gif',
-            solution: 'd.js',
-            time: 15,
+            image: './1-4.gif',
             presenterTasks: [],
-            todos: ['check if write Solution could be done simpler.'],
         },
     ],
 });

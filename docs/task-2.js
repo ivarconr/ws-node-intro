@@ -3,8 +3,8 @@ window.tasks('Task 2', {
     description: 'Express.js exercises. Checkout the docs for express http://expressjs.com/',
     children: [
         {
-            title: 'A',
-            description: 'create simple \'hello world\' app in a file called `a.js`',
+            title: '1 Hello world',
+            description: 'create simple \'hello world\' app in a file called `task2-1.js`',
             steps: [
                 'Instantiate express and listen on port 3000',
                 'You webapp should send `hello world` on request to root `/`',
@@ -14,11 +14,10 @@ window.tasks('Task 2', {
                 'Express docs: http://expressjs.com/',
                 'Example solution: http://expressjs.com/en/starter/hello-world.html',
             ],
-            solution: 'a.js',
             presenterTasks: [],
         },
         {
-            title: 'A-2',
+            title: '2 Static',
             description: 'Expose a public folder with static files.',
             steps: [
                 'Create a folder (`public`) with a file called `test.html`.',
@@ -30,13 +29,13 @@ window.tasks('Task 2', {
             ],
         },
         {
-            title: 'B',
-            description: 'Write a test for `a.js` using supertest',
+            title: '3 Supertest',
+            description: 'Write a test for `task2-1.js` using supertest',
             steps: [
-                'Separate code from `a.js` into 2 separate files: (`server.js` and `app.js`).',
+                'Separate code from `task2-1.js` into 2 separate files: (`server.js` and `app.js`).',
                 'Let app.js export the instantiated express-`app`object, and make `server.js` call `app.listen` on the correct port number.',
                 'Make sure the app still works',
-                'Create a test file `app-test.js` and test that the server responds with 200 ok and "Hello World" string.',
+                'Create a test file `app-test.js` and test that the server responds with 200 ok on route `/home` and "Hello World" string.',
             ],
             hints: [
                 'npm install supertest --save-dev',
@@ -44,7 +43,7 @@ window.tasks('Task 2', {
             ],
         },
         {
-            title: 'C',
+            title: '4 Templating',
             description: 'Render a view with nunjucks.',
             steps: [
                 'Create a new route `/` that renders a nunjucks template.',
@@ -65,7 +64,7 @@ window.tasks('Task 2', {
             ],
         },
         {
-            title: 'D',
+            title: '5 Middleware',
             description: 'Create a middleware function for request timing.',
             steps: [
                 'Continue on your existing app from c)',
@@ -81,12 +80,12 @@ window.tasks('Task 2', {
             ],
         },
         {
-            title: 'E',
+            title: '6 Form Input',
             description: 'Make an HTML form with input fields: `name` and `message`',
             steps: [
                 'Post the form to the new route and print the result.',
                 'Render the same view after the post, but also print the submitted name below the form.',
-                'Special hint: You\'ll need `body-parser` to parse form data',
+                'Special hint: You\'ll need a module called `body-parser` to parse form data',
             ],
             hints: [
                 'Create a post handler with the same url as you give the form action',
@@ -104,14 +103,14 @@ window.tasks('Task 2', {
             ],
         },
         {
-            title: 'E-2',
+            title: '7 Supertest part 2',
             description: 'Test your webapp with supertest',
             steps: [
                 'Create a test that submits the form, and verifies that the new view renders the name parameter',
             ],
         },
         {
-            title: 'F',
+            title: '8 Optional: Errorhandling',
             optional: true,
             description: 'Bonus Task: Error handling',
             steps: [
