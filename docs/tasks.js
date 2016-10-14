@@ -7,6 +7,7 @@ const createStore = Redux.createStore;
 const Provider = ReactRedux.Provider;
 const appStateReducer = window.appStateReducer;
 const initialInputState = window.initialInputState;
+const auth = window.auth;
 
 window.tasks = (function () {
     function parseHash (hash) {
@@ -42,6 +43,13 @@ window.tasks = (function () {
         }
         render();
         handleRoute();
+
+        auth.onAuthStateChanged((user) => {
+            store.dispatch({
+                type: 'SET_USER_INFO',
+                value: user && user.providerData && user.providerData[0],
+            });
+        });
     }, 0);
 
     return function register (taskName, task) {

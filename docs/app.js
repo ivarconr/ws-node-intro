@@ -4,20 +4,33 @@ const React = window.React;
 const ReactRedux = window.ReactRedux;
 const connect = ReactRedux.connect;
 
-window.App = () => (<div className="line">
+const User = ({ user }) => (
+    <div>
+        <div className="centerify r-margin profileimg">
+            <img className="rounded-border r-mtm" src={user.photoURL} width="125" />
+        </div>
+        <p className="centerify">Hei, {user.displayName}!</p>
+    </div>
+);
+
+const AppComponent = ({ user }) => (<div className="line">
     <div className="unit r-size2of3">
         <ContentContainer />
     </div>
     <div className="unit r-size1of3">
         <Menu />
+        { !user && <window.LoginComponent /> }
+        { user &&  <User user={user} />}
     </div>
 </div>);
+
+window.App = connect((state) => ({
+    user: state.getIn(['progressState', 'user']),
+}))(AppComponent);
 
 const Home = () => (
     <div>
         <h1>Welcome to the workshop</h1>
-        <p>This workshop has 2 parts.</p>
-        <p>first 2 sessions with nodeschools, then 3 main tasks creating a chat application</p>
         <div className="mod green-skin mhl">
             <div className="inner">
                 <div className="bd">
@@ -46,26 +59,19 @@ const TaskComponent = ({
         goNextSubTask,
         goPrevSubTask,
         hasUserName,
-        setUserName,
     }) => (
         hasUserName === false ?
-        (<form onSubmit={setUserName}>
+        (<div>
             <h1>{task.title}</h1>
-
-            <div className="formelement">
-                <label>Please input username before starting:</label>
-                <div className="input">
-                    <input id="username" type="text" />
-                </div>
-
-            </div>
-            <div className="formelement">
-                <button>Start</button>
-            </div>
-        </form>) :
+            <label>Please log in before starting:</label>
+            <window.LoginComponent />
+        </div>) :
     (<div>
-        <h1>{task.title}</h1>
-        <p>{task.description}</p>
+        {(
+            (!startTime && !stopTime) ||
+            (startTime && stopTime)
+        ) && <div><h1>{task.title}</h1><p>{task.description}</p></div>}
+
 
         {!startTime && <p><button className="primary" onClick={() => startTask(task.id)}>Start</button></p>}
         {stopTime &&
@@ -128,7 +134,7 @@ const Task = connect((state) => {
     const canGoPrev = subTaskId > 0;
     const canGoNext = (subTaskId + 1) < task.children.length;
     return {
-        hasUserName: !!state.getIn(['progressState', 'userName']),
+        hasUserName: !!state.getIn(['progressState', 'user']),
         task,
         startTime: state.getIn(['progressState', id, 'start']),
         stopTime: state.getIn(['progressState', id, 'stop']),
@@ -137,13 +143,6 @@ const Task = connect((state) => {
         subTask: task.children[subTaskId],
     };
 }, (dispatch) => ({
-    setUserName (e) {
-        e.preventDefault();
-        dispatch({
-            type: window.actions.SET_USER_INFO,
-            value: document.getElementById('username').value.trim(),
-        });
-    },
     goNextSubTask (value) {
         dispatch({
             type: window.actions.SHOW_NEXT_SUB_TASK,

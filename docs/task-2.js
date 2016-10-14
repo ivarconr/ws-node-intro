@@ -49,12 +49,12 @@ window.tasks('Task 2', {
                 'Create a new route `/` that renders a nunjucks template.',
                 'The view should render the string "hei <name>".',
                 'The handler should receive a query string parameter called `name`, that you inject into the render function',
-                'Make the provided test green',
+                'Make the provided test green/pass without exceptions',
             ],
             files: [
                 {
                     name: 'app.test.js',
-                    path: 'https://raw.githubusercontent.com/ivarconr/ws-node-intro/master/tasks/task-2/c/app.test.js',
+                    path: 'https://raw.githubusercontent.com/ivarconr/ws-node-intro/master/tasks/task-2/4/app.test.js',
                 },
             ],
             hints: [

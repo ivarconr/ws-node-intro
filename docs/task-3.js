@@ -3,17 +3,16 @@ window.tasks('Task 3', {
     description: 'Create a chat webapp',
     children: [
         {
-            title: '1',
+            title: '1 Collecting messages',
             description: 'Make a module that wraps queue module (from the chat client you used in task 1.)',
             steps: [
                 'It should be ... tODO'
             ],
         },
         {
-            title: '2',
-            description: 'Create a webapp with express showing messages ',
+            title: '2 Expose on a route',
+            description: 'Create a webapp with express showing messages from `message-service.js`',
             steps: [
-                'Use the provided `finn-workshop-helpers` module and use the queue to connnect with RabbitMQ',
                 'Use a template engine to ease the HTML rendering',
             ],
             hints: [
@@ -22,8 +21,8 @@ window.tasks('Task 3', {
             presenterTasks: [],
         },
         {
-            title: '3',
-            description: 'Expand on the solution with a HTML from with "name" and "message" fields.',
+            title: '3 Add new-message',
+            description: 'Expand on the solution with a HTML <form> with `name` and `message` fields',
             steps: [
                 'Set up a route to handle POST request',
                 'Publish the message via the provided `finn-workshop-helpers`.',
@@ -31,12 +30,11 @@ window.tasks('Task 3', {
             hints: [
 
             ],
-            solution: 'b',
             presenterTasks: [],
         },
         {
-            title: '3',
-            description: 'The solution you have so far is kind of stupid.',
+            title: '4 Realtime',
+            description: 'The solution you have so far is kind of simple.',
             image: './3-4.gif',
             steps: [
                 'A chat is usually real-time with messages updated automatically.',

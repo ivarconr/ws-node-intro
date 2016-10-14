@@ -3,7 +3,7 @@ window.tasks('Task 1', {
     description: 'Create a chat client inside your terminal',
     children: [
         {
-            title: '1 - Readline basics',
+            title: '1 Readline basics',
             description: 'In the first task you should familirize yourself with `readline`.',
             steps: [
                 'Use `readline` to ask a question (e.g. What is your name?) to be answered',
@@ -16,7 +16,7 @@ window.tasks('Task 1', {
             presenterTasks: [],
         },
         {
-            title: '2 - Text input via terminal',
+            title: '2 Text input via terminal',
             description: 'In this task you will write a small script that should make it possible to chat with yourself.',
             steps: [
                 'You must get `readline` to ask for your _name_, and then react to line input and print as a message to `process.stdout`. ',
@@ -24,10 +24,13 @@ window.tasks('Task 1', {
                 'After a message has been submittet, it should prompt for a new message.',
             ],
             hints: [
-                'Use same interface as _task 1a_',
+                'Use same interface as `task-1-1`',
                 'Ask a question via the interface.',
                 'React to the `line`-event.',
                 'Remember to reprompt after printing.',
+                {
+                    type: 'snippet',
+                },
             ],
             image: './1-2.gif',
             presenterTasks: [
@@ -36,7 +39,7 @@ window.tasks('Task 1', {
             ],
         },
         {
-            title: '3 - Consume messages from queue',
+            title: '3 Consume messages from queue',
             description: 'Now we will begin to implement an actual chat. In this task you will only consume messages.',
             steps: [
                 'You will use the provided `finn-workshop-helpers` module and use the `queue` to connnect with RabbitMQ.',
@@ -58,7 +61,7 @@ window.tasks('Task 1', {
             ],
         },
         {
-            title: '4 - Chat client',
+            title: '4 Chat client',
             description: 'In the last task we fill finalize the command-line based chat client.',
             steps: [
                 'Now you should first have the user register their name',
@@ -66,9 +69,9 @@ window.tasks('Task 1', {
                 'and allow the user to send messages.',
             ],
             hints: [
-                'You have done most of this already in task (b) and (c). ',
+                'You have done most of this already in task (1-2) and (1-3). ',
                 'Read the `finn-workshop-helpers` readme to learn how to publish messages.',
-                'Use clearLine and cursorTo(0) and reprompt after printing, like we did in task b.',
+                'Use clearLine and cursorTo(0) and reprompt after printing, like we did in task 1-2.',
             ],
             extras: [
                 'Add colors to output',

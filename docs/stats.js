@@ -20,12 +20,14 @@ const App = ({ users, topHintUsers }) => (
     <div>
 
         <div className="line">
-            <div className="unit size1of3">
+            <div className="unit size2of3">
                 <h1>Stats</h1>
-                <ul>
+                <ul className="line cols2upto480 cols4upto768 cols6upto990">
                 {users.map((user, i) => (
-                    <li key={i}>
-                        <strong>{user.userName}</strong> {user.currentTask && <span>er på <strong>{user.currentTask}</strong> / <span style={{color: 'blue'}}>{user.subTask}</span></span>}
+                    <li key={i} className="unit centerify" >
+                        <img className="rounded-border r-mtm" src={user.user.photoURL} width="100" /><br />
+                        <strong>{user.user.displayName}</strong><br />
+                        {user.currentTask && <span> er på <strong>{user.currentTask}</strong> / <span style={{ color: 'blue' }}>{user.subTask}</span></span>}
                     </li>
                 ))}
                 </ul>
@@ -35,7 +37,7 @@ const App = ({ users, topHintUsers }) => (
                 <ol>
                 {topHintUsers.map((user, i) => (
                     <li key={i}>
-                        <strong>{user.userName}</strong> {user.hintsUsed}
+                        <strong>{user.user.displayName}</strong> {user.hintsUsed}
                     </li>
                 ))}
                 </ol>
@@ -55,11 +57,10 @@ function render (snapshot) {
                 return !(userState[key] && userState[key].start && userState[key].stop);
             });
 
-            if (userState[tasks[0]].start) {
+            if (tasks[0] && userState[tasks[0]].start) {
                 userState.currentTask = tasks[0];
                 userState.subTask = userState[tasks[0]].subTaskId + 1;
             }
-
 
             return userState;
         });

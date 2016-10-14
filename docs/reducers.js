@@ -1,6 +1,6 @@
 const Immutable = window.Immutable;
 
-const PROGRESS_STORE_VER = 12;
+const VER = 15;
 
 window.actions = {
     ADD_TASK: 'ADD_TASK',
@@ -16,7 +16,7 @@ window.actions = {
 function getStored (key) {
     let item;
     try {
-        item = window.localStorage.getItem(`${key}${PROGRESS_STORE_VER}`);
+        item = window.localStorage.getItem(`${key}${VER}`);
         return JSON.parse(item);
     } catch (e) {
         // console.log(e, item);
@@ -25,7 +25,7 @@ function getStored (key) {
 
 function store (result, key) {
     try {
-        window.localStorage.setItem(`${key}${PROGRESS_STORE_VER}`, JSON.stringify(result));
+        window.localStorage.setItem(`${key}${VER}`, JSON.stringify(result));
     } catch (e) {
         // console.log(e);
     }
@@ -35,7 +35,7 @@ window.initialInputState = () => Immutable.fromJS({
     taskId: null,
     progressState: getStored('progressState') || {
         start: Date.now(),
-        userName: null,
+        user: null,
     },
     tasks: {},
 });
@@ -71,7 +71,7 @@ function addTask (state, value) {
 
 // SET_USER_INFO
 function setUserInfo (state, value) {
-    return state.setIn(['progressState', 'userName'], value);
+    return state.setIn(['progressState', 'user'], value);
 }
 
 const taskDirection = ['task-1', 'task-2', 'task-3'];
@@ -171,17 +171,20 @@ window.appStateReducer = (state = window.initialInputState(), action) => {
             break;
     }
 
-    const data = newState.get('progressState').toJS();
-    store(newState.get('progressState').toJS(), 'progressState');
-    if (data.userName) {
-        try {
-            window.fbApp.database()
-                .ref(`progress/${data.userName}`)
-                .set(data);
-        } catch (e) {
+    if (newState.get('progressState') !== state.get('progressState')) {
+        const data = newState.get('progressState').toJS();
+        store(newState.get('progressState').toJS(), 'progressState');
+        if (data.user) {
+            try {
+                window.fbApp.database()
+                    .ref(`progress/${data.user.uid}`)
+                    .set(data);
+            } catch (e) {
 
+            }
         }
     }
+
 
     return newState;
 };
