@@ -4,7 +4,9 @@ window.tasks('Task 1', {
     children: [
         {
             title: '1 Readline basics',
-            description: 'In the first task you should familirize yourself with `readline`. This is a core module in Node.js making it easy to read from in input stream.',
+            description:
+                `In the first task you should familirize yourself with \`readline\`. 
+                This is a core module in Node.js making it easy to read from in input stream.`,
             steps: [
                 'Find the `readline` documentation, and familirize yourself with the API and the first example.',
                 'Use `readline` to ask a question (e.g. What is your name?) to be answered',
@@ -64,7 +66,11 @@ window.tasks('Task 1', {
         },
         {
             title: '4 Chat client',
-            description: 'In the last task we fill finalize the command-line based chat client.',
+            description: `In this task we fill finalize the command-line based chat client. 
+                One of the most challengeing part of this task is to reset the cursor 
+                and re-prompt after printing. The code you can use for this is:
+                ![code](task1-4.png)
+                `,
             steps: [
                 'Now you should first have the user register their name',
                 'You should print all incomming messages, after the user has chosen his name',

@@ -3,6 +3,9 @@ const React = window.React;
 // const Redux = window.Redux;
 const ReactRedux = window.ReactRedux;
 const connect = ReactRedux.connect;
+const showdown  = window.showdown;
+const converter = new showdown.Converter();
+window.converter = converter;
 
 const User = ({ user }) => (
     <div>
@@ -70,7 +73,7 @@ const TaskComponent = ({
         {(
             (!startTime && !stopTime) ||
             (startTime && stopTime)
-        ) && <div><h1>{task.title}</h1><p>{task.description}</p></div>}
+        ) && <div><h1>{task.title}</h1><div dangerouslySetInnerHTML={{ __html: converter.makeHtml(task.description) }} /></div>}
 
 
         {!startTime && <p><button className="primary" onClick={() => startTask(task.id)}>Start</button></p>}
@@ -92,8 +95,7 @@ const TaskComponent = ({
                 </p>
 
                 <h2><small>{task.title} /</small> {subTask.title}</h2>
-                <p>{subTask.description}</p>
-
+                <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(subTask.description) }} />
                 {subTask.steps && <ul className="bullets">
                     {subTask.steps.map((step, i) => (
                         <li key={i}>{step}</li>
