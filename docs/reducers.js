@@ -175,9 +175,15 @@ window.appStateReducer = (state = window.initialInputState(), action) => {
         const data = newState.get('progressState').toJS();
         store(newState.get('progressState').toJS(), 'progressState');
         if (data.user) {
+            console.log(data);
             try {
                 window.fbApp.database()
-                    .ref(`progress/${data.user.uid}`)
+                    .ref(`progress/${
+                        data.user.displayName
+                            .toLowerCase()
+                            .replace(/\s+/gm, '_')
+                            // .replace(/[æøå]/img, 'a')
+                    }`)
                     .set(data);
             } catch (e) {
 

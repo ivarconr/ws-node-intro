@@ -1,6 +1,7 @@
 const React = window.React;
 const ReactDOM = window.ReactDOM;
 const firebase = window.firebase;
+const CircularProgressbar = window.CircularProgressbar.default;
 
 window.fbApp = firebase.initializeApp({
     apiKey: 'AIzaSyD2EHAw1D94bKzBaGlvsjJ5JeFiOo_aog8',
@@ -18,16 +19,24 @@ data.on('value', (snapshot) => {
 
 const App = ({ users, topHintUsers }) => (
     <div>
-
         <div className="line">
             <div className="unit size2of3">
                 <h1>Stats</h1>
                 <ul className="line cols2upto480 cols4upto768 cols6upto990">
                 {users.map((user, i) => (
-                    <li key={i} className="unit centerify" >
-                        <img className="rounded-border r-mtm" src={user.user.photoURL} width="100" /><br />
+                    <li key={i} className="unit size1of5 centerify mrm" style={{ minHeight: '120px' }}>
+                        <div style={{ position: 'relative' }}>
+                            <div style={{ position: 'absolute', left: '-1px', right: '-1px', top: '0', bottom: 0 }}>
+                                <CircularProgressbar
+                                    strokeWidth={5}
+                                    initialAnimation
+                                    percentage={user.taskProgress || 0}  />
+                            </div>
+                            <img className="rounded-border" src={user.user.photoURL} /><br />
+                        </div>
                         <strong>{user.user.displayName}</strong><br />
                         {user.currentTask && <span> er på <strong>{user.currentTask}</strong> / <span style={{ color: 'blue' }}>{user.subTask}</span></span>}
+
                     </li>
                 ))}
                 </ul>
@@ -37,7 +46,7 @@ const App = ({ users, topHintUsers }) => (
                 <ol>
                 {topHintUsers.map((user, i) => (
                     <li key={i}>
-                        <strong>{user.user.displayName}</strong> {user.hintsUsed}
+                        <strong>{user.user.displayName}</strong>: {user.hintsUsed}
                     </li>
                 ))}
                 </ol>
@@ -53,15 +62,22 @@ function render (snapshot) {
         .keys(snapshot || {})
         .map(key => snapshot[key])
         .map(userState => {
-            const tasks = allTasks.filter(key => {
-                return !(userState[key] && userState[key].start && userState[key].stop);
-            });
+            // remaining tasks that has not been completed
+            const tasks = allTasks
+                .filter(key => !(userState[key] && userState[key].start && userState[key].stop));
 
             if (tasks[0] && userState[tasks[0]].start) {
                 userState.currentTask = tasks[0];
                 userState.subTask = userState[tasks[0]].subTaskId + 1;
             }
-
+            if (tasks.length === allTasks.length) {
+                userState.taskProgress = 0;
+            } else if (tasks.length === 0) {
+                userState.taskProgress = 100;
+            } else {
+                const tasksLeft = allTasks.length - tasks.length;
+                userState.taskProgress =  (tasksLeft / allTasks.length * 100).toFixed(0);
+            }
             return userState;
         });
 

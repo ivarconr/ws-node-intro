@@ -6,7 +6,25 @@
         <meta http-equiv="X-UA-Compatible" content="IE=Edge">
         <title>FINN Node.js Workshop</title>
         <link rel="stylesheet" href="https://static.finncdn.no/bb/latest/css/spaden/5.x/spaden.min.css">
+        <style>
+        .CircularProgressbar .CircularProgressbar-path {
+          stroke: #06BEFB;
+          stroke-linecap: round;
+          transition: stroke-dashoffset 5s ease 0s;
+        }
 
+        .CircularProgressbar .CircularProgressbar-trail {
+          stroke: #F1F9FF;
+        }
+
+        .CircularProgressbar .CircularProgressbar-text {
+          fill: rgba(255, 255, 255, 0.8);
+          font-size: 30px;
+          line-height: 30px;
+          dominant-baseline: middle;
+          text-anchor: middle;
+        }
+      </style>
     </head>
     <body>
         <div class="container">
@@ -14,10 +32,11 @@
                 <h1 class="inprogress pal centerify">Loading client side stuff...</h1>
             </div>
         </div>
-        <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
-        <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+        <script src="https://unpkg.com/react@15.3.2/dist/react.min.js"></script>
+        <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
         <script src="https://unpkg.com/babel-core@5.8.38/browser.min.js"></script>
+        <script src="https://unpkg.com/react-circular-progressbar@0.1.2/build/index.js"></script>
         <script src="./stats.js" type="text/babel"></script>
     </body>
 </html>
