@@ -5,7 +5,7 @@ window.tasks('Task 1', {
         {
             title: '1 Readline basics',
             description:
-                `In the first task you should familirize yourself with \`readline\`. 
+                `In the first task you should familirize yourself with \`readline\`.
                 This is a core module in Node.js making it easy to read from in input stream.`,
             steps: [
                 'Find the `readline` documentation, and familirize yourself with the API and the first example.',
@@ -32,7 +32,27 @@ window.tasks('Task 1', {
                 'React to the `line`-event.',
                 'Remember to reprompt after printing.',
                 {
-                    type: 'snippet',
+                    title: 'js snipper from presentation',
+                    js: `
+const { createInterface, clearLine, cursorTo } = require('readline');
+const rl = createInterface({ input: process.stdin, output: process.stdout });
+
+function writeAndPrompt (line) {
+    clearLine(rl.output, 0);
+    cursorTo(rl.output, 0);
+    console.log(line);
+    rl.prompt(true);
+}
+
+rl.on('line', writeAndPrompt);
+
+setInterval(() => {
+    writeAndPrompt('Counter');
+}, 1000);
+
+rl.setPrompt('Hello? ');
+rl.prompt(true);
+`,
                 },
             ],
             image: './1-2.gif',
@@ -66,8 +86,8 @@ window.tasks('Task 1', {
         },
         {
             title: '4 Chat client',
-            description: `In this task we fill finalize the command-line based chat client. 
-                One of the most challengeing part of this task is to reset the cursor 
+            description: `In this task we fill finalize the command-line based chat client.
+                One of the most challengeing part of this task is to reset the cursor
                 and re-prompt after printing. The code you can use for this is:
                 ![code](task1-4.png)
                 `,

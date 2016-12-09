@@ -179,7 +179,7 @@ const Hint = ({ hint }) => {
         </div>);
     }
 
-    return <span>{typeof hint}</span>;
+    return <span>{hint}</span>;
 };
 
 const HintsComponent = ({ hintIds, hints, subTaskId, id, showHint }) => (
