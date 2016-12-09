@@ -171,6 +171,17 @@ const Task = connect((state) => {
     },
 }))(TaskComponent);
 
+const Hint = ({ hint }) => {
+    if (hint && hint.js) {
+        return (<div>
+            <h5>{hint.title}</h5>
+            <pre className="language-javascript"><code className="language-javascript" dangerouslySetInnerHTML={{ __html: window.Prism.highlight(hint.js, window.Prism.languages.javascript) }} /></pre>
+        </div>);
+    }
+
+    return <span>{typeof hint}</span>;
+};
+
 const HintsComponent = ({ hintIds, hints, subTaskId, id, showHint }) => (
     <div>
     <ul className="bullets">
@@ -178,7 +189,8 @@ const HintsComponent = ({ hintIds, hints, subTaskId, id, showHint }) => (
             const hintId = [subTaskId, id, i].join('__');
             return (<li key={i}>
                 {hintIds && hintIds[i] ?
-                    hint : <span className="link linkblock clickable" onClick={() => showHint(hintId)}>Show {id}</span>}
+                    <Hint hint={hint} /> :
+                    <span className="link linkblock clickable" onClick={() => showHint(hintId)}>Show {id}</span>}
             </li>);
         }) }
     </ul>

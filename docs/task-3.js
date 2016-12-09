@@ -13,18 +13,17 @@ window.tasks('Task 3', {
             ],
             hints: [
                 {
-                    type: 'snippet',
+                    title: 'js snippet',
+                    js: `
+function () {
+    const messages = [];
+    return {
+        getMessages () {
+            return messages;
+        },
+    };
+}`,
                 },
-                // TODO add code snippet support
-                // `${(function () {
-                //     const messages = [];
-
-                //     return {
-                //         getMessages () {
-                //             return messages;
-                //         },
-                //     };
-                // }).toString()}`,
             ],
         },
         {
