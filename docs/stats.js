@@ -20,28 +20,29 @@ data.on('value', (snapshot) => {
 const App = ({ users, topHintUsers }) => (
     <div>
         <div className="line">
-            <div className="unit size2of3">
+            <div className="unit size3of4">
                 <h1>Stats</h1>
                 <ul className="line cols2upto480 cols4upto768 cols6upto990">
                 {users.map((user, i) => (
-                    <li key={i} className="unit size1of5 centerify mrm" style={{ minHeight: '120px' }}>
-                        <div style={{ position: 'relative' }}>
+                    <li key={i} className="unit size1of6 centerify">
+                        <div style={{ position: 'relative' }} className="mhs">
                             <div style={{ position: 'absolute', left: '-1px', right: '-1px', top: '0', bottom: 0 }}>
                                 <CircularProgressbar
                                     strokeWidth={5}
                                     initialAnimation
                                     percentage={user.taskProgress || 0}  />
                             </div>
-                            <img className="rounded-border" src={user.user.photoURL} /><br />
+                            <img className="rounded-border" src={user.user.photoURL} style={{ width: '100%', height: '100%' }}/><br />
                         </div>
+                        <div style={{ height: '50px'/* todo use flex instead */ }}>
                         <strong>{user.user.displayName}</strong><br />
                         {user.currentTask && <span> er på <strong>{user.currentTask}</strong> / <span style={{ color: 'blue' }}>{user.subTask}</span></span>}
-
+                        </div>
                     </li>
                 ))}
                 </ul>
             </div>
-            <div className="unit size1of3">
+            <div className="unit size1of4">
                 <h1>Hints heroes</h1>
                 <ol>
                 {topHintUsers.map((user, i) => (
