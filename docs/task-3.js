@@ -10,6 +10,7 @@ window.tasks('Task 3', {
                 'Use the provided `finn-workshop-helpers` module and use the `queue` to connnect with RabbitMQ',
                 'Store new messages in a scoped array',
                 'Expose/export a method/function `getMessages` that gives you the messages array',
+                'Test your module with our provided [test](https://raw.githubusercontent.com/ivarconr/ws-node-intro/master/tasks/task-3/1/message-service.test.js)',
             ],
             hints: [
                 {
