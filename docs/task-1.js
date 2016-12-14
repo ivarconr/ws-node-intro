@@ -31,29 +31,6 @@ window.tasks('Task 1', {
                 'Ask a question via the interface.',
                 'React to the `line`-event.',
                 'Remember to reprompt after printing.',
-                {
-                    title: 'js snipper from presentation',
-                    js: `
-const { createInterface, clearLine, cursorTo } = require('readline');
-const rl = createInterface({ input: process.stdin, output: process.stdout });
-
-function writeAndPrompt (line) {
-    clearLine(rl.output, 0);
-    cursorTo(rl.output, 0);
-    console.log(line);
-    rl.prompt(true);
-}
-
-rl.on('line', writeAndPrompt);
-
-setInterval(() => {
-    writeAndPrompt('Counter');
-}, 1000);
-
-rl.setPrompt('Hello? ');
-rl.prompt(true);
-`,
-                },
             ],
             image: './1-2.gif',
             presenterTasks: [
@@ -101,7 +78,29 @@ rl.prompt(true);
                 'You have done most of this already in task (1-2) and (1-3). ',
                 'Read the `finn-workshop-helpers` readme to learn how to publish messages.',
                 'Use clearLine and cursorTo(0) and reprompt after printing, like we did in task 1-2.',
-                'https://docs.google.com/presentation/d/1IBXeQxZOrAQsXv4zXUOStNEDORhW3nyzMNrs9HY5yW0/edit#slide=id.g17943e8711_0_14',
+                {
+                    title: 'js snippet from presentation',
+                    js: `
+const { createInterface, clearLine, cursorTo } = require('readline');
+const rl = createInterface({ input: process.stdin, output: process.stdout });
+
+function writeAndPrompt (line) {
+    clearLine(rl.output, 0);
+    cursorTo(rl.output, 0);
+    console.log(line);
+    rl.prompt(true);
+}
+
+rl.on('line', writeAndPrompt);
+
+setInterval(() => {
+    writeAndPrompt('Counter');
+}, 1000);
+
+rl.setPrompt('Hello? ');
+rl.prompt(true);
+`,
+                },
             ],
             extras: [
                 'Add colors to output',

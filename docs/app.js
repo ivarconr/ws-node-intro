@@ -7,6 +7,10 @@ const showdown  = window.showdown;
 const converter = new showdown.Converter();
 window.converter = converter;
 
+const Markdown = ({ content }) => (
+    <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(content) }} />
+);
+
 const User = ({ user }) => (
     <div>
         <div className="centerify r-margin profileimg">
@@ -73,7 +77,10 @@ const TaskComponent = ({
         {(
             (!startTime && !stopTime) ||
             (startTime && stopTime)
-        ) && <div><h1>{task.title}</h1><div dangerouslySetInnerHTML={{ __html: converter.makeHtml(task.description) }} /></div>}
+        ) && <div>
+            <h1>{task.title}</h1>
+            <Markdown content={task.description} />
+        </div>}
 
 
         {!startTime && <p><button className="primary" onClick={() => startTask(task.id)}>Start</button></p>}
@@ -95,10 +102,12 @@ const TaskComponent = ({
                 </p>
 
                 <h2><small>{task.title} /</small> {subTask.title}</h2>
-                <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(subTask.description) }} />
+                <Markdown content={subTask.description} />
                 {subTask.steps && <ul className="bullets">
                     {subTask.steps.map((step, i) => (
-                        <li key={i}>{step}</li>
+                        <li key={i} className="mbm">
+                            <Markdown content={step} />
+                        </li>
                     ))}
                 </ul>}
 
@@ -179,7 +188,7 @@ const Hint = ({ hint }) => {
         </div>);
     }
 
-    return <span>{hint}</span>;
+    return <Markdown content={hint} />;
 };
 
 const HintsComponent = ({ hintIds, hints, subTaskId, id, showHint }) => (
@@ -187,10 +196,10 @@ const HintsComponent = ({ hintIds, hints, subTaskId, id, showHint }) => (
     <ul className="bullets">
         { hints.map((hint, i) => {
             const hintId = [subTaskId, id, i].join('__');
-            return (<li key={i}>
+            return (<li key={i} className="mbm">
                 {hintIds && hintIds[i] ?
                     <Hint hint={hint} /> :
-                    <span className="link linkblock clickable" onClick={() => showHint(hintId)}>Show {id}</span>}
+                    <button className="small order" onClick={() => showHint(hintId)}>Show {hint.js ? 'code ' : ''}{id}</button>}
             </li>);
         }) }
     </ul>
