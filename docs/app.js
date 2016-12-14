@@ -54,6 +54,28 @@ const ContentContainer = connect((state) => ({
     contentId: state.get('taskId') || 'home',
 }))(Content);
 
+
+class HidableImage extends React.Component {
+    constructor (props) {
+        super(props);
+
+        this.state = { hidden: true };
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle () {
+        this.setState({ hidden: !this.state.hidden });
+    }
+
+    render () {
+        const { src } = this.props;
+        return (
+        <div className="pvm phl clickable" onClick={this.toggle}>
+            {this.state.hidden ? <button className="small">Vis bilde</button> : <img className="pvm phl" src={src} />}
+        </div>);
+    }
+}
+
 const TaskComponent = ({
         task,
         startTask,
@@ -104,21 +126,20 @@ const TaskComponent = ({
                 <h2><small>{task.title} /</small> {subTask.title}</h2>
                 <hr />
                 <div className="mbl">
-                <Markdown content={subTask.description} />
-                {subTask.steps && <ul className="bullets">
-                    {subTask.steps.map((step, i) => (
-                        <li key={i} className="mbm">
-                            <Markdown content={step} />
-                        </li>
+                    <Markdown content={subTask.description} />
+                    {subTask.steps && <ul className="bullets">
+                        {subTask.steps.map((step, i) => (
+                            <li key={i} className="mbm">
+                                <Markdown content={step} />
+                            </li>
+                        ))}
+                    </ul>}
+
+                    {subTask.files && subTask.files.map((entry, i) => (
+                        <p key={i}><a href={entry.path} target="_blank">Provided file: {entry.name}</a></p>
                     ))}
-                </ul>}
 
-
-                {subTask.files && subTask.files.map((entry, i) => (
-                    <p key={i}><a href={entry.path} target="_blank">Provided file: {entry.name}</a></p>
-                ))}
-
-                {subTask.image && <img className="pvm phl" src={subTask.image} />}
+                    {subTask.image && <HidableImage src={subTask.image} />}
                 </div>
 
                 {subTask.hints && subTask.hints.length > 0 ?
