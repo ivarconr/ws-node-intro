@@ -1,5 +1,6 @@
 'use strict';
-const createService = require('./service');
+
+const createService = require('./message-service');
 
 module.exports = function (cache, config) {
     return function perUserConntection (ws) {

@@ -1,4 +1,5 @@
 'use strict';
+
 const express = require('express');
 const errorHandler = require('./middlewares/express-error');
 

@@ -1,4 +1,5 @@
 'use strict';
+
 const chalk = require('chalk');
 const queue = require('./');
 const readline = require('readline');
@@ -77,7 +78,5 @@ queue(amqpUri, 'busy-queue')
 
         data.forEach(messageSender);
     });
-
-
 
 

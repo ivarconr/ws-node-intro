@@ -36,7 +36,7 @@ window.LoginComponent = React.createClass({
     },
     render () {
         return (
-            <div id="firebaseui-auth"></div>
+            <div id="firebaseui-auth" />
         );
     },
 });

@@ -1,4 +1,5 @@
 'use strict';
+
 document.addEventListener('DOMContentLoaded', function () {
     var host = window.document.location.host.replace(/:.*/, '');
     var ws = new WebSocket('ws://' + host + ':3000/chat');

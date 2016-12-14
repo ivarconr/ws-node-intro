@@ -1,4 +1,5 @@
 'use strict';
+
 const { config } = require('../../../helpers');
 const { makeApp } = require('./app');
 const app = makeApp(config);

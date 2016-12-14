@@ -1,7 +1,8 @@
 'use strict';
+
 const express = require('express');
 const nunjucks = require('nunjucks');
-const service = require('./service');
+const service = require('./message-service');
 
 module.exports.makeApp = (config) => {
     const { getMessages } = service(config);

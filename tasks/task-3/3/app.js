@@ -1,8 +1,9 @@
 'use strict';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
-const service = require('./service');
+const service = require('./message-service');
 const { join } = require('path');
 
 module.exports.makeApp = (config) => {

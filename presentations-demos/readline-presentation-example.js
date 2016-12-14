@@ -1,4 +1,5 @@
 'use strict';
+
 const { createInterface, clearLine, cursorTo } = require('readline');
 const rl = createInterface({ input: process.stdin, output: process.stdout });
 

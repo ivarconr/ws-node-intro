@@ -1,4 +1,5 @@
 'use strict';
+
 require('./node-error-handling');
 const { makeApp } = require('./app');
 const app = makeApp();
