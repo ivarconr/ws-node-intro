@@ -5,12 +5,12 @@ window.tasks('Task 1', {
         {
             title: '1 Readline basics',
             description:
-                `In the first task you should familirize yourself with \`readline\`.
+                `In the first task you should familiarize yourself with \`readline\`.
                 This is a core module in Node.js making it easy to read from in input stream.`,
             steps: [
-                'Find the `readline` documentation, and familirize yourself with the API and the first example.',
+                'Find the `readline` documentation, and familiarize yourself with the API and the first example.',
                 'Use `readline` to ask a question (e.g. What is your name?) to be answered',
-                'use inputstream `process.stdin` and print the response to the writestream`process.stdout`.',
+                'use the inputstream `process.stdin` and print the response to the writestream `process.stdout`.',
             ],
             hints: [
                 'Check out example in the [node.js readlline documentation](https://nodejs.org/api/readline.html#readline_readline)',
@@ -43,7 +43,7 @@ window.tasks('Task 1', {
             description: 'Now we will begin to implement an actual chat. In this task you will only consume messages.',
             steps: [
                 'You will use the provided `finn-workshop-helpers` module and use the `queue` to connnect with RabbitMQ.',
-                'Find it on http://npmjs.org, and install it with npm',
+                'Find it on [npmjs.org](http://npmjs.org) or [npms.io](https://npms.io/), and install it with `npm`',
                 'You should print messages emitted from the queue to the `console.log`.',
                 'You will need to use a unique `queue-name` to ensure that only you consume this queue.',
             ],
@@ -54,6 +54,7 @@ window.tasks('Task 1', {
                 'npm install `finn-workshop-helpers`',
                 'remember to also check errors.',
                 'Find and read the readme',
+                'The README can be found at [npmjs.org](https://www.npmjs.com/package/finn-workshop-helpers)',
             ],
             image: './1-3.gif',
             presenterTasks: [
@@ -72,7 +73,7 @@ window.tasks('Task 1', {
                 'Now you should first have the user register their name',
                 'You should print all incomming messages, after the user has chosen his name',
                 'You must allow the user to send messages.',
-                'finn-workshop-helpers emits the "connected" when the connection is initalized and it is possible to publish messags.',
+                '`finn-workshop-helpers` emits the `"connected"` when the connection is initalized and it is possible to publish messags.',
             ],
             hints: [
                 'You have done most of this already in task (1-2) and (1-3). ',
