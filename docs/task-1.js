@@ -1,6 +1,6 @@
 window.tasks('Task 1', {
     title: 'Task 1',
-    description: 'Create a chat client inside your terminal',
+    description: 'Create a chat client for your terminal',
     children: [
         {
             title: '1 Readline basics',

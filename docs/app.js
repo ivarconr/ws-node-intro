@@ -112,7 +112,7 @@ const TaskComponent = ({
         </div>}
 
         {notReady && (
-            <div className="mod green-skin">
+            <div className="mod green-skin mhl">
                 <div className="inner">
                     <div className="bd">
                         <h3>This task is not ready</h3>
@@ -122,9 +122,9 @@ const TaskComponent = ({
             </div>)
         }
 
-        {!notReady && !startTime && <p><button className="primary" onClick={() => startTask(task.id)}>Start</button></p>}
+        {!notReady && !startTime && <p><button className="large primary" onClick={() => startTask(task.id)}>Start {task.title}</button></p>}
         {stopTime &&
-            <div className="mod green-skin mhl">
+            <div className="mod green-skin mam">
             <div className="inner">
                 <div className="bd">
                     <p>Task completed in {Math.round((stopTime - startTime) / 1000)} seconds</p>
@@ -134,9 +134,9 @@ const TaskComponent = ({
         {startTime && subTask && (
             <div>
                 <p>
-                {canGoPrev && <button className="" onClick={() => goPrevSubTask(task.id)}>Previous</button>}
+                {<button className="" disabled={!canGoPrev} onClick={() => goPrevSubTask(task.id)}>Previous</button>}
                 &nbsp;
-                {canGoNext && <button className="primary" onClick={() => goNextSubTask(task.id)}>Show next</button>}
+                {canGoNext && <button className="primary fright" onClick={() => goNextSubTask(task.id)}>Show next</button>}
                 {!canGoNext && <button className={stopTime ? 'fright' : ' fright order'} onClick={() => stopTask(task.id)}>Complete {task.title}</button>}
                 </p>
 
@@ -300,8 +300,22 @@ const MenuComponent = ({ tasksList }) => (<div>
     <ol>
         {tasksList.map((task, i) => (
             <li key={i}>
-                <input type="checkbox" disabled checked={task.completed}/>&nbsp;
-                <a href={`#${task.id}`}>{task.name}</a>
+
+                <a href={`#${task.id}`} style={{ borderBottom: '1px solid #bbb', display: 'block' }} className="pam">
+                    <input type="checkbox" disabled checked={task.completed}/>&nbsp;
+                    {task.name}
+                </a>
+                {task.active && task.children.length > 0 &&
+                    <ol className="pan man pvm">
+                        {task.children.map((child, i) => {
+                            return (<li key={i} className="pas phl">
+                                <input type="checkbox" disabled checked={child.completed}/>&nbsp;
+                                {child.title}
+                            </li>);
+                        })}
+                    </ol>
+
+                }
             </li>
         ))}
     </ol>
@@ -312,6 +326,16 @@ const MenuComponent = ({ tasksList }) => (<div>
 const Menu = connect((state) => ({
     tasksList: state.get('tasks').toArray()
     .map(entry => {
+        const taskId = state.getIn(['taskId']);
+        const done = state.getIn(['progressState', taskId, 'stop'])
+        entry.active = entry.id === taskId;
+        const subTaskId = state.getIn(['progressState', taskId, 'subTaskId']);
+
+        if (entry.active) {
+            entry.children.forEach((child, index) => {
+                child.completed = done || index < subTaskId;
+            });
+        }
         entry.completed = state.getIn(['progressState', entry.id, 'stop']);
         return entry;
     }),
