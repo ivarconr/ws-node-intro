@@ -77,6 +77,7 @@ class HidableImage extends React.Component {
 }
 
 const TaskComponent = ({
+        notReady,
         task,
         startTask,
         stopTask,
@@ -95,7 +96,7 @@ const TaskComponent = ({
             <label>Please log in before starting:</label>
             <window.LoginComponent />
         </div>) :
-    (<div>
+        (<div>
         {(
             (!startTime && !stopTime) ||
             (startTime && stopTime)
@@ -104,8 +105,18 @@ const TaskComponent = ({
             <Markdown content={task.description} />
         </div>}
 
+        {notReady && (
+            <div className="mod green-skin">
+                <div className="inner">
+                    <div className="bd">
+                        <h3>This task is not ready</h3>
+                        <p>Please complete previous task before starting "{task.title}".</p>
+                    </div>
+                </div>
+            </div>)
+        }
 
-        {!startTime && <p><button className="primary" onClick={() => startTask(task.id)}>Start</button></p>}
+        {!notReady && !startTime && <p><button className="primary" onClick={() => startTask(task.id)}>Start</button></p>}
         {stopTime &&
             <div className="mod green-skin mhl">
             <div className="inner">
@@ -120,7 +131,7 @@ const TaskComponent = ({
                 {canGoPrev && <button className="" onClick={() => goPrevSubTask(task.id)}>Previous</button>}
                 &nbsp;
                 {canGoNext && <button className="primary" onClick={() => goNextSubTask(task.id)}>Show next</button>}
-                {!canGoNext && <button className="fright" onClick={() => stopTask(task.id)}>Complete {task.title}</button>}
+                {!canGoNext && <button className={stopTime ? 'fright' : ' fright order'} onClick={() => stopTask(task.id)}>Complete {task.title}</button>}
                 </p>
 
                 <h2><small>{task.title} /</small> {subTask.title}</h2>
@@ -171,6 +182,7 @@ const Task = connect((state) => {
     const canGoPrev = subTaskId > 0;
     const canGoNext = (subTaskId + 1) < task.children.length;
     return {
+        notReady: window.taskIsNotReady(state, id),
         hasUserName: !!state.getIn(['progressState', 'user']),
         task,
         startTime: state.getIn(['progressState', id, 'start']),

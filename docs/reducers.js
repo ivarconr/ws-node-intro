@@ -26,6 +26,10 @@ function getStored (key) {
     }
 }
 
+window.resetProgressState = () => {
+    store(null, 'progressState');
+};
+
 function store (result, key) {
     try {
         window.localStorage.setItem(`${key}${VER}`, JSON.stringify(result));
@@ -98,6 +102,7 @@ function taskIsNotReady (state, value) {
 
     return false;
 }
+window.taskIsNotReady = taskIsNotReady;
 
 // SHOW_TASK
 function showTask (state, value) {

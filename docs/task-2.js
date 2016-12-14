@@ -4,11 +4,11 @@ window.tasks('Task 2', {
     children: [
         {
             title: '1 Hello world',
-            description: 'create simple \'hello world\' app in a file called `task2-1.js`',
+            description: 'Create simple \'hello world\' app in a file called `task2-1.js`',
             steps: [
                 'Instantiate express and listen on port 3000',
-                'You webapp should send `hello world` on request to root `/`',
-                'Check the result in a browser or with curl.',
+                'You webapp should send `hello world` on request to root `"/"`',
+                'Check the result in a [browser](http://localhost:3000/) or with curl.',
             ],
             hints: [
                 'Express docs: [http://expressjs.com/](http://expressjs.com/)',
@@ -33,9 +33,9 @@ window.tasks('Task 2', {
             description: 'Write a test for `task2-1.js` using supertest',
             steps: [
                 'Separate code from `task2-1.js` into 2 separate files: (`server.js` and `app.js`).',
-                'Let `app.js` export the instantiated express-`app`object, and make `server.js` call `app.listen` on the correct port number.',
-                'Verify that app still works',
-                'Create a test file `app-test.js` and test that the server responds with 200 ok on route `/home` and "Hello World" string.',
+                'Let `app.js` export the instantiated express object (`const app = express()`), and make `server.js` call `app.listen` on the correct port number.',
+                'Verify that server still works',
+                'Create a test file `app-test.js` and test that the server responds with HTTP status code `200 OK` on route `/home` and "Hello World" as body/string.',
             ],
             hints: [
                 'Run `npm install supertest --save-dev`',
@@ -46,10 +46,11 @@ window.tasks('Task 2', {
             title: '4 Templating',
             description: 'Render a view with nunjucks.',
             steps: [
-                'Create a new route `/` that renders a nunjucks template.',
-                'The view should render the string "hei <name>".',
-                'The handler should receive a query string parameter called `name`, that you inject into the render function',
+                'Create a new route on path `"/"` that renders a nunjucks template.',
+                'The view should render the string `"hei <name>"`.',
+                'The request-handler should receive a query string parameter called `name`, that you inject into the render function',
                 'Make the [provided test](https://raw.githubusercontent.com/ivarconr/ws-node-intro/master/tasks/task-2/4/app.test.js) green/pass without exceptions',
+                'Check the result in a [browser](http://localhost:3000/?name=Julenissen) or with curl.',
             ],
             files: [
                 {
