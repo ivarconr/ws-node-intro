@@ -104,7 +104,7 @@ rl.prompt(true);
                 },
             ],
             extras: [
-                'Add colors to output',
+                'Add colors to output via npm module `chalk` or `colours`',
             ],
             image: './1-4.gif',
             presenterTasks: [],

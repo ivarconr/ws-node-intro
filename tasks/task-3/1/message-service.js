@@ -2,17 +2,17 @@
 
 const { queue } = require('../../../helpers');
 
-module.exports = (config) => {
+module.exports = (config, queueImpl = queue) => {
     const messages = [];
 
-    queue(config.amqpUri, 'my-application-name')
+    queueImpl(config.amqpUri, config.appName)
         .on('connected', () => console.log('connected to queue'))
         .on('message', message => messages.push(message))
         .on('error', console.error);
 
     return {
         getMessages () {
-            return Promise.resolve(messages);
+            return messages;
         },
     };
 };

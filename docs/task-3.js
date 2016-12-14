@@ -24,13 +24,37 @@ function () {
     };
 }`,
                 },
+                {
+                    title: 'Populate messages from queue into messages array',
+                    js: `
+function (config) {
+    const messages = [];
+
+    queue(config.amqpUri, config.appName)
+        .on('message', message => messages.push(message))
+
+    return {
+        getMessages () {
+            return messages;
+        },
+    };
+};
+`,
+                },
+            ],
+            files: [
+                {
+                    name: 'message-service.test.js',
+                    path: 'https://raw.githubusercontent.com/ivarconr/ws-node-intro/master/tasks/task-3/1/message-service.test.js',
+                },
             ],
         },
         {
-            title: '2 Expose on a route',
+            title: '2 Expose messages on a route',
             description: 'Create a webapp with express showing messages from `message-service.js`',
             steps: [
-                'Use a template engine to ease the HTML rendering',
+                'Show messages on path `/`',
+                'You may use a template engine to ease the HTML rendering',
             ],
             hints: [
 
@@ -39,9 +63,9 @@ function () {
         },
         {
             title: '3 Add new-message',
-            description: 'Expand on the solution with a HTML `<form>` with `name` and `message` fields',
+            description: 'Expand on the input solution with a HTML `<form>` with `name` and `message` fields',
             steps: [
-                'Set up a route to handle POST request',
+                'Set up a server route to handle POST request',
                 'Publish the message via the provided `finn-workshop-helpers`.',
             ],
             hints: [
