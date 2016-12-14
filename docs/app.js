@@ -325,17 +325,23 @@ const MenuComponent = ({ tasksList }) => (<div>
     <ol>
         {tasksList.map((task, i) => (
             <li key={i}>
+                <div className="pam ptn fancyinput" style={{ borderBottom: '1px solid #bbb', display: 'block' }}>
+                    <input type="checkbox" disabled checked={task.completed}/>
+                    <label className="truncate blockify fancyinput-label ">
+                        <a href={`#${task.id}`}>
+                            {task.name}
+                        </a>
+                    </label>
+                </div>
 
-                <a href={`#${task.id}`} style={{ borderBottom: '1px solid #bbb', display: 'block' }} className="pam">
-                    <input type="checkbox" disabled checked={task.completed}/>&nbsp;
-                    {task.name}
-                </a>
                 {task.active && task.children.length > 0 &&
                     <ol className="pan man pvm">
                         {task.children.map((child, i) => {
-                            return (<li key={i} className="pas phl">
-                                <input type="checkbox" disabled checked={child.completed}/>&nbsp;
-                                {child.title}
+                            return (<li key={i} className="pll">
+                                <div className="fancyinput">
+                                    <input type="checkbox" disabled checked={child.completed}/>
+                                    <label className="truncate blockify fancyinput-label ">{child.title}</label>
+                                </div>
                             </li>);
                         })}
                     </ol>
