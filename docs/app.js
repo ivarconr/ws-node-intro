@@ -102,6 +102,8 @@ const TaskComponent = ({
                 </p>
 
                 <h2><small>{task.title} /</small> {subTask.title}</h2>
+                <hr />
+                <div className="mbl">
                 <Markdown content={subTask.description} />
                 {subTask.steps && <ul className="bullets">
                     {subTask.steps.map((step, i) => (
@@ -117,17 +119,20 @@ const TaskComponent = ({
                 ))}
 
                 {subTask.image && <img className="pvm phl" src={subTask.image} />}
+                </div>
 
                 {subTask.hints && subTask.hints.length > 0 ?
-                    <div>
-                        <h4>Hints</h4>
+                    <div className="mbl">
+                        <h3>{subTask.hints.length} Hint{subTask.hints.length === 1 ? '' : 's'}</h3>
+                        <hr />
                         <Hints hints={subTask.hints} parentId={task.id} id="hints" />
                     </div> :
                     null
                 }
 
-                {subTask.extras ? <div>
-                    <h4>Extra stuff to do:</h4>
+                {subTask.extras ? <div className="mbl">
+                    <h3>Extra stuff to do:</h3>
+                    <hr />
                     <Hints hints={subTask.extras} parentId={task.id} id="extras" />
                     </div> : null}
 

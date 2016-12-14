@@ -11,8 +11,8 @@ window.tasks('Task 2', {
                 'Check the result in a browser or with curl.',
             ],
             hints: [
-                'Express docs: http://expressjs.com/',
-                'Example solution: http://expressjs.com/en/starter/hello-world.html',
+                'Express docs: [http://expressjs.com/](http://expressjs.com/)',
+                'Example solution: [http://expressjs.com/en/starter/hello-world.html](http://expressjs.com/en/starter/hello-world.html)',
             ],
             presenterTasks: [],
         },
@@ -22,10 +22,10 @@ window.tasks('Task 2', {
             steps: [
                 'Create a folder (`public`) with a file called `test.html`.',
                 'Put some html content in that file',
-                'Expose it on /public/test.html',
+                'Expose it on [`/public/test.html`](http://localhost:3000/public/test.html) ',
             ],
             hints: [
-                'There is an express middleware function that does the work of exposing a directory of files (see https://expressjs.com/en/starter/static-files.html)',
+                'There is an express middleware function that does the work of exposing a directory of files (see [https://expressjs.com/en/starter/static-files.html](https://expressjs.com/en/starter/static-files.html))',
             ],
         },
         {
@@ -33,13 +33,13 @@ window.tasks('Task 2', {
             description: 'Write a test for `task2-1.js` using supertest',
             steps: [
                 'Separate code from `task2-1.js` into 2 separate files: (`server.js` and `app.js`).',
-                'Let app.js export the instantiated express-`app`object, and make `server.js` call `app.listen` on the correct port number.',
-                'Make sure the app still works',
+                'Let `app.js` export the instantiated express-`app`object, and make `server.js` call `app.listen` on the correct port number.',
+                'Verify that app still works',
                 'Create a test file `app-test.js` and test that the server responds with 200 ok on route `/home` and "Hello World" string.',
             ],
             hints: [
-                'npm install supertest --save-dev',
-                'https://github.com/visionmedia/supertest',
+                'Run `npm install supertest --save-dev`',
+                'Supertest [https://github.com/visionmedia/supertest](https://github.com/visionmedia/supertest)',
             ],
         },
         {
@@ -49,7 +49,7 @@ window.tasks('Task 2', {
                 'Create a new route `/` that renders a nunjucks template.',
                 'The view should render the string "hei <name>".',
                 'The handler should receive a query string parameter called `name`, that you inject into the render function',
-                'Make the provided test green/pass without exceptions',
+                'Make the [provided test](https://raw.githubusercontent.com/ivarconr/ws-node-intro/master/tasks/task-2/4/app.test.js) green/pass without exceptions',
             ],
             files: [
                 {
@@ -58,9 +58,9 @@ window.tasks('Task 2', {
                 },
             ],
             hints: [
-                'Use the npm package `nunjucks` (`npm install nunjucks`)',
-                'Nunjucks documentation: https://github.com/mozilla/nunjucks/blob/master/docs/getting-started.md (see express example)',
-                'Query string parameters in express: http://expressjs.com/en/api.html#req.query',
+                'Use the npm package `nunjucks`. Run `npm install nunjucks --save`',
+                'Nunjucks documentation: [Getting Started](https://github.com/mozilla/nunjucks/blob/master/docs/getting-started.md) (see express example)',
+                'Query string parameters in express: [http://expressjs.com/en/api.html#req.query](http://expressjs.com/en/api.html#req.query)',
             ],
         },
         {
@@ -72,11 +72,11 @@ window.tasks('Task 2', {
                 'Special hint: Remember that the http response object is an event emitter.',
             ],
             hints: [
-                'Express middlewares: http://expressjs.com/en/guide/writing-middleware.html',
-                'Create a variable that holds the current timestamp (Date.now())',
-                'Let the middleware chain continue by calling next()',
+                'Express middlewares: [http://expressjs.com/en/guide/writing-middleware.html](http://expressjs.com/en/guide/writing-middleware.html)',
+                'Create a variable that holds the current timestamp (`Date.now()`)',
+                'Let the middleware chain continue by calling `next()`',
                 'After next has finished, create a new variable that subtracts the current timestamp with the one you created before',
-                'Print the result using console.log',
+                'Print the result using `console.log`',
             ],
         },
         {
@@ -89,8 +89,8 @@ window.tasks('Task 2', {
             ],
             hints: [
                 'Create a post handler with the same url as you give the form action',
-                'Express routes: http://expressjs.com/en/guide/routing.html (see app.post example)',
-                'Html forms: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/My_first_HTML_form',
+                'Express routes: [expressjs.com/en/guide/routing.html](http://expressjs.com/en/guide/routing.html) (see app.post example)',
+                'Html forms: [MDN: My first HTML form](ttps://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/My_first_HTML_form)',
                 'Accessing form data in an express handler: http://expressjs.com/en/api.html#req.body',
                 [
                     'If-checks in nunjucks can be done like this:',
@@ -112,7 +112,7 @@ window.tasks('Task 2', {
         {
             title: '8 Optional: Errorhandling',
             optional: true,
-            description: 'Bonus Task: Error handling',
+            description: 'Optional Bonus Task: Error handling',
             steps: [
                 'Add a global handler for `uncaughtException` and `unhandledRejection`',
                 'add a express middleware to output an error stack for development',

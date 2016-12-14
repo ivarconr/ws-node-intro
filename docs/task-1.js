@@ -13,7 +13,7 @@ window.tasks('Task 1', {
                 'use inputstream `process.stdin` and print the response to the writestream`process.stdout`.',
             ],
             hints: [
-                'https://nodejs.org/api/readline.html#readline_readline',
+                'Check out example in the [node.js readlline documentation](https://nodejs.org/api/readline.html#readline_readline)',
             ],
             image: './1-1.gif',
             presenterTasks: [],

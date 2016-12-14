@@ -4,16 +4,16 @@ window.tasks('Task 3', {
     children: [
         {
             title: '1 Collecting messages',
-            description: 'Make a module that wraps queue module (from the chat client you used in task 1.)',
+            description: 'Make a module that wraps [queue module](https://www.npmjs.com/package/finn-workshop-helpers) (from the chat client you used in task 1.)',
             steps: [
                 'Create a new file `message-service.js`',
                 'Use the provided `finn-workshop-helpers` module and use the `queue` to connnect with RabbitMQ',
                 'Store new messages in a scoped array',
-                'Expose/export a method/function getMessages that gives you the messages array',
+                'Expose/export a method/function `getMessages` that gives you the messages array',
             ],
             hints: [
                 {
-                    title: 'js snippet',
+                    title: 'Create a protected messages array that can hold your state',
                     js: `
 function () {
     const messages = [];
@@ -39,7 +39,7 @@ function () {
         },
         {
             title: '3 Add new-message',
-            description: 'Expand on the solution with a HTML <form> with `name` and `message` fields',
+            description: 'Expand on the solution with a HTML `<form>` with `name` and `message` fields',
             steps: [
                 'Set up a route to handle POST request',
                 'Publish the message via the provided `finn-workshop-helpers`.',
@@ -58,8 +58,8 @@ function () {
                 'Use websockets or similar to make it more real-time-ish!',
             ],
             hints: [
-                'clientside js websockets api: https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API',
-                'server https://github.com/websockets/ws',
+                'Clientside js websockets api: [MDN: WebSockets API](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)',
+                'Node.js / Server [ws module](https://github.com/websockets/ws)',
 
             ],
             presenterTasks: [],
