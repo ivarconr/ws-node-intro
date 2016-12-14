@@ -1,6 +1,6 @@
 const Immutable = window.Immutable;
 
-const VER = 16;
+const VER = 17;
 
 window.actions = {
     ADD_TASK: 'ADD_TASK',
@@ -17,7 +17,10 @@ function getStored (key) {
     let item;
     try {
         item = window.localStorage.getItem(`${key}${VER}`);
-        return JSON.parse(item);
+        item = JSON.parse(item);
+        if (item.version === VER) {
+            return item;
+        }
     } catch (e) {
         // console.log(e, item);
     }
@@ -34,6 +37,7 @@ function store (result, key) {
 window.initialInputState = () => Immutable.fromJS({
     taskId: null,
     progressState: getStored('progressState') || {
+        version: VER,
         start: Date.now(),
         user: null,
     },
@@ -175,7 +179,6 @@ window.appStateReducer = (state = window.initialInputState(), action) => {
         const data = newState.get('progressState').toJS();
         store(newState.get('progressState').toJS(), 'progressState');
         if (data.user) {
-            console.log(data);
             try {
                 window.fbApp.database()
                     .ref(`progress/${
