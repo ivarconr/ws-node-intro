@@ -1,10 +1,11 @@
 'use strict';
+
 const { queue } = require('../../../helpers');
 
 module.exports = (config) => {
     const messages = [];
 
-    queue(config.amqpUri, 'my-application-name')
+    const q = queue(config.amqpUri, 'my-chat-$yourName')
         .on('connected', () => console.log('connected to queue'))
         .on('message', message => messages.push(message))
         .on('error', console.error);
@@ -12,6 +13,9 @@ module.exports = (config) => {
     return {
         getMessages () {
             return Promise.resolve(messages);
+        },
+        sendMessage (name, message) {
+            return q.sendMessage(name, message);
         },
     };
 };
