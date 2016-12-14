@@ -336,14 +336,12 @@ const MenuComponent = ({ tasksList }) => (<div>
 
                 {task.active && task.children.length > 0 &&
                     <ol className="pan man pvm">
-                        {task.children.map((child, i) => {
-                            return (<li key={i} className="pll">
-                                <div className="fancyinput">
-                                    <input type="checkbox" disabled checked={child.completed}/>
-                                    <label className="truncate blockify fancyinput-label ">{child.title}</label>
-                                </div>
-                            </li>);
-                        })}
+                        {task.children.map((child, i2) => (<li key={i2} className="pll">
+                            <div className="fancyinput">
+                                <input type="checkbox" disabled checked={child.completed}/>
+                                <label className="truncate blockify fancyinput-label ">{child.title}</label>
+                            </div>
+                        </li>))}
                     </ol>
 
                 }
@@ -358,7 +356,7 @@ const Menu = connect((state) => ({
     tasksList: state.get('tasks').toArray()
     .map(entry => {
         const taskId = state.getIn(['taskId']);
-        const done = state.getIn(['progressState', taskId, 'stop'])
+        const done = state.getIn(['progressState', taskId, 'stop']);
         entry.active = entry.id === taskId;
         const subTaskId = state.getIn(['progressState', taskId, 'subTaskId']);
 

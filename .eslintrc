@@ -1,6 +1,10 @@
 {
-    "extends": [
-        "finn",
-        "finn/node"
-    ]
+  "root": true,
+  "extends": [
+    "finn",
+    "finn/node"
+  ],
+  "rules": {
+    "max-len": ["error", 300]
+  }
 }
