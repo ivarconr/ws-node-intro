@@ -1,20 +1,17 @@
 const React = window.React;
 const ReactDOM = window.ReactDOM;
-const firebase = window.firebase;
 const CircularProgressbar = window.CircularProgressbar.default;
-
-window.fbApp = firebase.initializeApp({
-    apiKey: 'AIzaSyD2EHAw1D94bKzBaGlvsjJ5JeFiOo_aog8',
-    authDomain: 'finn-workshop.firebaseapp.com',
-    databaseURL: 'https://finn-workshop.firebaseio.com',
-    storageBucket: 'finn-workshop.appspot.com',
-    messagingSenderId: '443724460687',
-});
-
+const auth = window.auth;
 const data = window.fbApp.database().ref('progress');
 
 data.on('value', (snapshot) => {
     render(snapshot.val());
+});
+
+auth.onAuthStateChanged((user) => {
+    if (!user) {
+        renderToDOM({ users: [], topHintUsers: [] });
+    }
 });
 
 const App = ({ users, topHintUsers }) => (
@@ -53,6 +50,7 @@ const App = ({ users, topHintUsers }) => (
                 </ol>
             </div>
         </div>
+        <window.LoginComponent />
     </div>
 );
 
@@ -98,6 +96,10 @@ function render (snapshot) {
         return user;
     }).sort((userA, userB) => (userA.hintsUsed > userB.hintsUsed ? 1 : -1))
     .slice(0, 10);
+    renderToDOM({ users, topHintUsers });
+}
 
+
+function renderToDOM ({ users, topHintUsers }) {
     ReactDOM.render((<App users={users} topHintUsers={topHintUsers} />), document.getElementById('content'));
 }
