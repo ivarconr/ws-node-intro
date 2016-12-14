@@ -3,6 +3,7 @@
 const express = require('express');
 const nunjucks = require('nunjucks');
 const service = require('./message-service');
+const { join } = require('path');
 
 module.exports.makeApp = (config) => {
     const { getMessages } = service(config);
@@ -11,7 +12,7 @@ module.exports.makeApp = (config) => {
     // Configure
     app.set('view engine', 'njk');
 
-    nunjucks.configure('./templates', {
+    nunjucks.configure(join(__dirname, 'templates'), {
         autoescape: true,
         express: app,
     });

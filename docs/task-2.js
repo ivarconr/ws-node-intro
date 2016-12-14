@@ -61,6 +61,15 @@ window.tasks('Task 2', {
             hints: [
                 'Use the npm package `nunjucks`. Run `npm install nunjucks --save`',
                 'Nunjucks documentation: [Getting Started](https://github.com/mozilla/nunjucks/blob/master/docs/getting-started.md) (see express example)',
+                {
+                    title: 'nunjucks as a express middleware',
+                    js: `// templates is the relative folder where our templates are
+nunjucks.configure(join(__dirname, 'templates'), {
+    autoescape: true,
+    express: app,
+});
+`,
+                },
                 'Query string parameters in express: [http://expressjs.com/en/api.html#req.query](http://expressjs.com/en/api.html#req.query)',
             ],
         },
