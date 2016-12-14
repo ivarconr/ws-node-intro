@@ -51,6 +51,31 @@ const Home = () => (
                 </div>
             </div>
         </div>
+
+        <div className="mod border-stone mhl">
+            <div className="inner">
+                <div className="bd bg-banana">
+                    <h4>About hints</h4>
+                    <p>We provide hints for each task, but hope you try to solve the task without them.
+                    The user who uses fewest hints might get a reward.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div className="mod border-stone mhl">
+            <div className="inner">
+                <div className="bd">
+                    <h4>Resources</h4>
+                    <p>Node.js resources to be aware of:</p>
+                    <ul className="bullets">
+                        <li><a href="https://nodejs.org/dist/latest-v6.x/docs/api/" target="_blank">nodejs.org api docs</a></li>
+                        <li><a href="https://www.npmjs.com/" target="_blank">npmjs.com/</a></li>
+                        <li><a href="https://npms.io/" target="_blank">Search for modules npms.io/</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 );
 
@@ -124,7 +149,7 @@ const TaskComponent = ({
 
         {!notReady && !startTime && <p><button className="large primary" onClick={() => startTask(task.id)}>Start {task.title}</button></p>}
         {stopTime &&
-            <div className="mod green-skin mam">
+            <div className="mod green-skin mam mhl">
             <div className="inner">
                 <div className="bd">
                     <p>Task completed in {Math.round((stopTime - startTime) / 1000)} seconds</p>
