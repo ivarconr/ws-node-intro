@@ -9,7 +9,7 @@ Consuming messages:
     const q = queue(config.amqpUri, 'queue-name')
 
     q.on('connected', (q) => {
-          console.log('Conntected');
+          console.log('Connected');
         })
         .on('message', (msg) =>  console.log('Message:', msg))
         .on('error', (err) => console.error('Error:', err));
