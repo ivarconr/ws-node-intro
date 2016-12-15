@@ -124,8 +124,7 @@ const TaskComponent = ({
         hasUserName === false ?
         (<div>
             <h1>{task.title}</h1>
-            <label>Please log in before starting:</label>
-            <window.LoginComponent />
+            <label>Please log in before starting!</label>
         </div>) :
         (<div>
         {(
