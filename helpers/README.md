@@ -8,15 +8,17 @@ Consuming messages:
     const { queue, config } = require('finn-workshop-helpers');
     const q = queue(config.amqpUri, 'queue-name')
 
-    q.on('connected', (q) => )
-        .on('message', console.log)
-        .on('error', console.error);
+    q.on('connected', (q) => {
+          console.log('Conntected');
+        })
+        .on('message', (msg) =>  console.log('Message:', msg))
+        .on('error', (err) => console.error('Error:', err));
 ```
 
 Send messages:
 
 ```js
   q.sendMessage('name', 'msg')
-        .then(() => console.log('sent'))
+        .then(() => console.log('Message sent'))
         .catch(console.error);
 ```
