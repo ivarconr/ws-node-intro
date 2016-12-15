@@ -7,7 +7,7 @@ const { makeApp } = require('./app');
 const app = makeApp();
 
 request(app)
-    .get('/home?name=Node')
+    .get('/?name=Node')
     .expect(200)
     .expect('content-type', 'text/html; charset=utf-8')
     .end((err, res) => {
