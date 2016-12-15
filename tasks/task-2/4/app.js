@@ -14,7 +14,7 @@ module.exports.makeApp = () => {
     });
 
 
-    app.get('/home', (req, res) => {
+    app.get('/', (req, res) => {
         res.render('index', {
             name: req.query.name,
         });
