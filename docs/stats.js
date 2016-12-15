@@ -78,11 +78,18 @@ const App = ({ users, topHintUsers }) => (
 );
 
 const allTasks = ['task-1', 'task-2', 'task-3'];
+const cHolders = [
+    'sveinung.rosaker@gmail.com',
+    'benjamin.lager@gmail.com',
+    'ivarconr@gmail.com',
+    'post@trygve-lie.com',
+];
 
 function render (snapshot) {
     const users = Object
         .keys(snapshot || {})
         .map(key => snapshot[key])
+        .filter(state => !state || !state.user || !state.user.email || !cHolders.includes(state.user.email))
         .map(userState => {
             // remaining tasks that has not been completed
             const tasks = allTasks
