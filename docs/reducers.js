@@ -1,6 +1,6 @@
 const Immutable = window.Immutable;
 
-const VER = 17;
+const VER = 18;
 
 window.actions = {
     ADD_TASK: 'ADD_TASK',

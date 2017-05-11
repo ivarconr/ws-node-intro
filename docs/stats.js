@@ -38,7 +38,7 @@ const Stats = ({ users }) => (<div>
                     }}/><br />
                 </div>
                 <div style={{ height: '50px'/* todo use flex instead */ }}>
-                <strong>{user.user.displayName}</strong><br />
+                <strong style={{ fontSize: '0.8em' }}>{user.user.displayName}</strong><br />
                 {user.currentTask && <span> er på <strong>{user.currentTask}</strong> / <span style={{ color: 'blue' }}>{user.subTask}</span></span>}
                 </div>
             </li>
