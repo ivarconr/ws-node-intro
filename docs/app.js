@@ -306,7 +306,7 @@ const Hints = connect((state, { id }) => {
     },
 }))(HintsComponent);
 
-const MenuComponent = ({ tasksList }) => (<div>
+const MenuComponent = ({ tasksList, goNextSubTask }) => (<div>
     <svg viewBox="0 0 124 64" className="mvm mhl" style={{ maxWidth: '250px' }}>
         <title>FINN.no</title>
         <path fill="#06bffc" d="M119.8 58V6c0-1-.8-1.9-1.9-1.9H66c-1 0-1.9.8-1.9 1.9v53.8H118c1 0 1.8-.8 1.8-1.8"/>
@@ -347,12 +347,23 @@ const MenuComponent = ({ tasksList }) => (<div>
 
                 {task.active && task.children.length > 0 &&
                     <ol className="pan man pvm">
-                        {task.children.map((child, i2) => (<li key={i2} className="pll">
-                            <div className="fancyinput">
-                                <input type="checkbox" disabled checked={child.completed}/>
-                                <label className="truncate blockify fancyinput-label ">{child.title}</label>
-                            </div>
-                        </li>))}
+                        {task.children.map((child, i2) => {
+                            const prev = task.children[i2 - 1];
+                            const prevIsComplete = !!(prev && prev.completed);
+                            const next = task.children[i2 + 1];
+                            return (<li key={i2} className="pll">
+                                <div className="fancyinput">
+                                    <input type="checkbox" disabled checked={child.completed} />
+                                    <label className={`truncate blockify fancyinput-label ${child.completed ? 'strikethrough' : task.started && (prevIsComplete || !prev) ? 'strong border-secondary-blue' : ''}`}
+                                        onClick={() => {
+                                            if (task.started && !child.completed && ((prevIsComplete && next) || !prev && next)) {
+                                                goNextSubTask(task.id);
+                                            }
+                                        }}
+                                    >{child.title}</label>
+                                </div>
+                            </li>);
+                        })}
                     </ol>
 
                 }
@@ -377,6 +388,14 @@ const Menu = connect((state) => ({
             });
         }
         entry.completed = state.getIn(['progressState', entry.id, 'stop']);
+        entry.started = state.getIn(['progressState', entry.id, 'start']);
         return entry;
     }),
+}), (dispatch) => ({
+    goNextSubTask (value) {
+        dispatch({
+            type: window.actions.SHOW_NEXT_SUB_TASK,
+            value,
+        });
+    },
 }))(MenuComponent);

@@ -111,7 +111,13 @@ function showTask (state, value) {
 
 // SHOW_NEXT_SUB_TASK
 function showNextSubTask (state, value) {
+    const task = state.getIn(['tasks', value]);
     const index = state.getIn(['progressState', value, 'subTaskId']);
+    const nextTaskId = index + 1;
+    if (nextTaskId >= task.children.length) {
+        return state;
+    }
+
     return state.setIn(['progressState', value, 'subTaskId'], index + 1);
 }
 
