@@ -14,8 +14,7 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-const Stats = ({ users }) => {
-    return (<div>
+const Stats = ({ users }) => (<div>
     <h1>Stats</h1>
         <hr />
         <ul className="line cols2upto480 cols4upto768 cols6upto990">
@@ -26,9 +25,17 @@ const Stats = ({ users }) => {
                         <CircularProgressbar
                             strokeWidth={5}
                             initialAnimation
-                            percentage={user.taskProgress || 0}  />
+                            percentage={user.taskProgress || 0} />
                     </div>
-                    <img className="rounded-border" src={user.user.photoURL} style={{ width: '100%', height: '100%' }}/><br />
+                    <img className="rounded-border" src={user.user.photoURL} style={{
+                        backgroundImage: `url(${user.user.photoURL})`,
+                        backgroundRepeat: 'none',
+                        backgroundSize: 'cover',
+                        width: '100%',
+                        height: 0,
+                        paddingBottom: '100%',
+                        objectFit: 'cover',
+                    }}/><br />
                 </div>
                 <div style={{ height: '50px'/* todo use flex instead */ }}>
                 <strong>{user.user.displayName}</strong><br />
@@ -38,7 +45,6 @@ const Stats = ({ users }) => {
         ))}
         </ul>
     </div>);
-};
 
 const App = ({ users, topHintUsers }) => (
     <div className="mod bg-ice mtl">
@@ -105,7 +111,7 @@ function render (snapshot) {
                 userState.taskProgress = 100;
             } else {
                 const tasksLeft = allTasks.length - tasks.length;
-                userState.taskProgress =  (tasksLeft / allTasks.length * 100).toFixed(0);
+                userState.taskProgress = (tasksLeft / allTasks.length * 100).toFixed(0);
             }
             return userState;
         });
@@ -116,7 +122,7 @@ function render (snapshot) {
             if (!user[taskId] || !user[taskId].subTasks) { return 0; }
 
             Object.keys(user[taskId].subTasks).forEach(subKey => {
-                const hints =  user[taskId].subTasks[subKey].hints;
+                const hints = user[taskId].subTasks[subKey].hints;
                 if (hints) {
                     hintsUsed += Object.keys(hints).length;
                 }
