@@ -3,7 +3,7 @@ const React = window.React;
 // const Redux = window.Redux;
 const ReactRedux = window.ReactRedux;
 const connect = ReactRedux.connect;
-const showdown  = window.showdown;
+const showdown = window.showdown;
 const converter = new showdown.Converter();
 window.converter = converter;
 
@@ -33,7 +33,7 @@ const AppComponent = ({ user }) => (<div className="line">
     <div className="unit r-size1of3">
         <Menu />
         { !user && <window.LoginComponent /> }
-        { user &&  <User user={user} />}
+        { user && <User user={user} />}
     </div>
 </div>);
 
@@ -120,6 +120,7 @@ const TaskComponent = ({
         goNextSubTask,
         goPrevSubTask,
         hasUserName,
+        nextTask,
     }) => (
         hasUserName === false ?
         (<div>
@@ -161,6 +162,7 @@ const TaskComponent = ({
                 {<button className="" disabled={!canGoPrev} onClick={() => goPrevSubTask(task.id)}>Previous</button>}
                 &nbsp;
                 {canGoNext && <button className="primary fright" onClick={() => goNextSubTask(task.id)}>Show next</button>}
+                {!canGoNext && stopTime && nextTask && <a href={`#task-${nextTask}`} className="button fright order mlm" >Goto {nextTask}</a>}
                 {!canGoNext && <button className={stopTime ? 'fright' : ' fright order'} onClick={() => stopTask(task.id)}>Complete {task.title}</button>}
                 </p>
 
@@ -207,10 +209,19 @@ const TaskComponent = ({
 
 const Task = connect((state) => {
     const id = state.get('taskId');
+    let nextNum = id.match(/\d/);
+    if (nextNum) {
+        nextNum = Number(nextNum[0]) + 1;
+        let nextTask = state.getIn(['tasks', id.replace(/\d/, nextNum)]);
+        if (!nextTask) {
+            nextNum = null;
+        }
+    }
     const task = state.getIn(['tasks', id]);
     const subTaskId = state.getIn(['progressState', id, 'subTaskId']);
     const canGoPrev = subTaskId > 0;
     const canGoNext = (subTaskId + 1) < task.children.length;
+
     return {
         notReady: window.taskIsNotReady(state, id),
         hasUserName: !!state.getIn(['progressState', 'user']),
@@ -220,6 +231,7 @@ const Task = connect((state) => {
         canGoPrev,
         canGoNext,
         subTask: task.children[subTaskId],
+        nextTask: nextNum,
     };
 }, (dispatch) => ({
     goNextSubTask (value) {
