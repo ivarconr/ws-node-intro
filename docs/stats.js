@@ -98,20 +98,38 @@ function render (snapshot) {
         .filter(state => !state || !state.user || !state.user.email || !cHolders.includes(state.user.email))
         .map(userState => {
             // remaining tasks that has not been completed
-            const tasks = allTasks
+            const remainingTasks = allTasks
                 .filter(key => !(userState[key] && userState[key].start && userState[key].stop));
 
-            if (tasks[0] && userState[tasks[0]].start) {
-                userState.currentTask = tasks[0];
-                userState.subTask = userState[tasks[0]].subTaskId + 1;
+            let totalSubtasks = 0;
+            let remainingSubtasks = 0;
+            allTasks.forEach(key => {
+                const task = window.tasks[key];
+                task.children.forEach((subTask, index) => {
+                    totalSubtasks++;
+                    remainingSubtasks++;
+                    if (remainingTasks[0] && remainingTasks[0] === key) {
+                        if (userState[remainingTasks[0]].subTaskId && index < userState[remainingTasks[0]].subTaskId) {
+                            remainingSubtasks--;
+                        }
+                    }
+                    if (userState[key].start && userState[key].stop) {
+                        remainingSubtasks--;
+                    }
+                });
+            });
+
+            if (remainingTasks[0] && userState[remainingTasks[0]].start) {
+                userState.currentTask = remainingTasks[0];
+                userState.subTask = userState[remainingTasks[0]].subTaskId + 1;
             }
-            if (tasks.length === allTasks.length) {
+            if (remainingSubtasks === totalSubtasks) {
                 userState.taskProgress = 0;
-            } else if (tasks.length === 0) {
+            } else if (remainingSubtasks === 0) {
                 userState.taskProgress = 100;
             } else {
-                const tasksLeft = allTasks.length - tasks.length;
-                userState.taskProgress = (tasksLeft / allTasks.length * 100).toFixed(0);
+                const tasksLeft = totalSubtasks - remainingSubtasks;
+                userState.taskProgress = (tasksLeft / totalSubtasks * 100).toFixed(0);
             }
             return userState;
         });
@@ -139,3 +157,19 @@ function render (snapshot) {
 function renderToDOM ({ users, topHintUsers }) {
     ReactDOM.render((<App users={users} topHintUsers={topHintUsers} />), document.getElementById('content'));
 }
+
+// expose tasks data to stats.html
+window.tasks = (function () {
+    function toKey (k) {
+        return String(k)
+            .replace(/\s+/gm, '-')
+            .toLowerCase();
+    }
+
+    return function register (taskName, task) {
+        task.name = taskName;
+        task.id = toKey(taskName);
+
+        window.tasks[task.id] = task;
+    };
+})();
